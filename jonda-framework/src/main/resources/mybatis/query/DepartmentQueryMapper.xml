@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.jonda.rbac.dao.DepartmentQueryDao">
+
+    <resultMap id="department_result_map" type="DepartmentQueryResult">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="description" property="description"/>
+        <result column="l_value" property="left"/>
+        <result column="r_value" property="right"/>
+        <result column="creator" property="creator"/>
+        <result column="create_time" property="createTime"/>
+        <result column="modifier" property="modifier"/>
+        <result column="modify_time" property="modifyTime"/>
+        <association property="parent" javaType="DepartmentQueryResult">
+            <id property="id" column="parent_id"/>
+            <result property="name" column="parent_name"/>
+            <result property="description" column="parent_description"/>
+            <result property="left" column="parent_l_value"/>
+            <result property="right" column="parent_r_value"/>
+        </association>
+    </resultMap>
+
+    <!-- 根据用户名查找用户，用于登录 -->
+    <select id="getAllDepartment" resultMap="department_result_map">
+        select
+            dep.id as id,
+            dep.name as name,
+            dep.description as description,
+            dep.l_value as l_value,
+            dep.r_value as r_value,
+            dep.creator as creator,
+            dep.create_time as create_time,
+            dep.modifier as modifier,
+            dep.modify_time as modify_time,
+
+            parent.id as parent_id,
+            parent.name as parent_name,
+            parent.description as parent_description,
+            parent.l_value as parent_l_value,
+            parent.r_value as parent_r_value
+        from rbac_department dep
+            left join rbac_department parent     on dep.parent_id=parent.id
+         where dep.data_status=1
+    </select>
+
+</mapper>

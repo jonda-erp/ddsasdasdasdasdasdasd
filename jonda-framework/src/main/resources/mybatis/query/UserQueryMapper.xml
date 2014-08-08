@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.jonda.rbac.dao.UserQueryDao">
+
+    <resultMap id="login_result_map" type="User">
+        <id column="id" property="id"/>
+        <result column="login_name" property="loginName"/>
+        <result column="password" property="password"/>
+        <result column="salt" property="salt"/>
+        <result column="name" property="name"/>
+        <result column="remark" property="remark"/>
+        <result column="creator" property="creator"/>
+        <result column="create_time" property="createTime"/>
+        <result column="modifier" property="modifier"/>
+        <result column="modify_time" property="modifyTime"/>
+        <association property="department" javaType="Department">
+            <id property="id" column="dep_id"/>
+            <result property="name" column="dep_name"/>
+            <result property="description" column="dep_description"/>
+        </association>
+        <collection property="roles" ofType="Role">
+            <id property="id" column="role_id"/>
+            <result property="name" column="role_name"/>
+            <result property="code" column="role_code"/>
+            <result property="description" column="role_description"/>
+            <collection property="permissions" ofType="Permission">
+                <id property="id" column="per_id"/>
+                <result property="code" column="per_code"/>
+                <result property="operation" column="per_operation"/>
+                <result property="url" column="per_url"/>
+                <result property="name" column="per_name"/>
+                <result property="description" column="per_description"/>
+                <result property="ranks" column="per_ranks"/>
+            </collection>
+        </collection>
+    </resultMap>
+
+    <resultMap id="user_result_map" type="UserQueryResult">
+        <id column="id" property="id"/>
+        <result column="login_name" property="loginName"/>
+        <result column="name" property="name"/>
+        <result column="remark" property="remark"/>
+        <result column="creator" property="creator"/>
+        <result column="create_time" property="createTime"/>
+        <result column="modifier" property="modifier"/>
+        <result column="modify_time" property="modifyTime"/>
+        <association property="department" javaType="DepartmentQueryResult">
+            <id property="id" column="dep_id"/>
+            <result property="name" column="dep_name"/>
+            <result property="description" column="dep_description"/>
+        </association>
+    </resultMap>
+
+    <!-- 根据用户名查找用户，用于登录 -->
+    <select id="getUserAndPermissionInfo" parameterType="string" resultMap="login_result_map">
+        select
+            u.id as id,
+            u.login_name as login_name,
+            u.password as password,
+            u.salt as salt,
+            u.name as name,
+            u.remark as remark,
+            u.creator as creator,
+            u.create_time as create_time,
+            u.modifier as modifier,
+            u.modify_time as modify_time,
+
+            dep.id as dep_id,
+            dep.name as dep_name,
+            dep.description as dep_description,
+
+            r.id as role_id,
+            r.name as role_name,
+            r.code as role_code,
+            r.description as role_description,
+
+            p.id as per_id,
+            p.code as per_code,
+            p.operation as per_operation,
+            p.url as per_url,
+            p.name as per_name,
+            p.description as per_description,
+            p.ranks as per_ranks
+        from rbac_user u
+            left join rbac_department dep     on u.department_id=dep.id
+            left join rbac_user_role ur       on u.id = ur.user_id
+            left join rbac_role r             on r.id = ur.role_id
+            left join rbac_role_permission rp on r.id = rp.role_id
+            left join rbac_permission p       on p.id = rp.permission_id
+         where u.login_name=#{loginName}
+         and u.data_status=1
+    </select>
+
+    <select id="getLoginInfo" resultType="User" parameterType="string">
+        select
+            login_name as loginName,
+            password,
+            salt
+        from
+            rbac_user
+        where
+            data_status=1
+        and
+            login_name=#{loginName}
+    </select>
+
+    <select id="getUserById" parameterType="long" resultMap="user_result_map">
+        select
+            u.id as id,
+            u.login_name as login_name,
+            u.password as password,
+            u.salt as salt,
+            u.name as name,
+            u.remark as remark,
+            u.creator as creator,
+            u.create_time as create_time,
+            u.modifier as modifier,
+            u.modify_time as modify_time,
+
+            dep.id as dep_id,
+            dep.name as dep_name,
+            dep.description as dep_description
+        from rbac_user u
+        left join rbac_department dep     on u.department_id=dep.id
+        where u.id=#{userId} AND u.data_status=1
+    </select>
+
+    <select id="queryUser" parameterType="UserQueryParam" resultMap="user_result_map">
+        select
+            u.id as id,
+            u.login_name as login_name,
+            u.password as password,
+            u.salt as salt,
+            u.name as name,
+            u.remark as remark,
+            u.creator as creator,
+            u.create_time as create_time,
+            u.modifier as modifier,
+            u.modify_time as modify_time,
+
+            dep.id as dep_id,
+            dep.name as dep_name,
+            dep.description as dep_description
+        from rbac_user u
+        left join rbac_department dep     on u.department_id=dep.id
+        where u.data_status=1
+        <include refid="queryUser_conditions"/>
+        <include refid="com.jonda.rbac.dao.CommonDao.pageConditions"/>
+    </select>
+
+    <select id="queryUser_count" parameterType="UserQueryParam" resultType="int">
+        select count(1)
+        from rbac_user u
+        left join rbac_department dep     on u.department_id=dep.id
+        where u.data_status=1
+        <include refid="queryUser_conditions"/>
+    </select>
+
+    <sql id="queryUser_conditions">
+
+        <if test="loginName != null and loginName != ''">
+            and u.login_name = #{loginName}
+        </if>
+        <if test="name != null and name != ''">
+            and u.name = #{name}
+        </if>
+        <if test="departmentId != null">
+            and u.department_id = #{departmentId}
+        </if>
+    </sql>
+</mapper>

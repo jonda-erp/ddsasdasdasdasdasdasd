@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.jonda.rbac.dao.RoleManageDao">
+
+    <insert id="insertRolePermissionBatch" parameterType="Role">
+        insert into rbac_role_permission(role_id, permission_id)
+        values
+        <foreach collection="permissions" item="item" separator=",">
+            (#{id}, #{item.id})
+        </foreach>
+    </insert>
+</mapper>
