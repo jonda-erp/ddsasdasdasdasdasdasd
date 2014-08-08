@@ -10,4 +10,7 @@
         INSERT INTO user (name, login_name, password, salt, creator, create_time, modifier, modify_time)
         VALUES (#{name},#{loginName},#{password},#{salt},#{creator},current_timestamp(),#{modifier},current_timestamp())
     </insert>-->
+
+
+
 </mapper>
