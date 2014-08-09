@@ -8,12 +8,14 @@ import com.jonda.erp.wedding.service.OrderQueryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 
 /**
  * Created by rejoady on 2014/7/18.
  */
+@Transactional
 @Service("orderQueryService")
 public class OrderQueryServiceImpl implements OrderQueryService {
 

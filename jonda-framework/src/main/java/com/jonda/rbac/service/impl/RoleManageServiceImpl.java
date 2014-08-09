@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * Created by rejoady on 2014/7/30.
  */
-//@Transactional()
+@Transactional
 @Service("roleManageService")
 public class RoleManageServiceImpl implements RoleManageService {
 

@@ -9,6 +9,7 @@ import com.jonda.rbac.dto.result.UserQueryResult;
 import com.jonda.rbac.service.UserManageService;
 import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ import java.util.List;
 /**
  * Created by rejoady on 2014/7/19.
  */
+@Transactional
 @Service("userManageService")
 public class UserManageServiceImpl implements UserManageService {
 
@@ -58,7 +60,6 @@ public class UserManageServiceImpl implements UserManageService {
         return Boolean.TRUE;
     }
 
-    // TODO 事务控制
     @Override
     public boolean distributeRole(Long userId, List<Long> roleIds) {
         UserQueryResult user = userQueryDao.getUserById(userId);

@@ -24,14 +24,9 @@
             <version>${project.version}</version>
         </dependency>
 
-        <!-- MyBatis -->
         <dependency>
-            <groupId>org.mybatis</groupId>
-            <artifactId>mybatis</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.mybatis</groupId>
-            <artifactId>mybatis-spring</artifactId>
+            <groupId>com.jonda.framework</groupId>
+            <artifactId>jonda-framework</artifactId>
         </dependency>
 
         <dependency>
@@ -39,17 +34,6 @@
             <artifactId>${jdbc.driver.artifactId}</artifactId>
         </dependency>
 
-        <!-- data pool -->
-        <dependency>
-            <groupId>org.apache.tomcat</groupId>
-            <artifactId>tomcat-jdbc</artifactId>
-        </dependency>
-
-        <!-- jdbc -->
-        <dependency>
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-jpa</artifactId>
-        </dependency>
     </dependencies>
 
 </project>

@@ -23,6 +23,10 @@
             <version>${project.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.jonda.framework</groupId>
+            <artifactId>jonda-framework</artifactId>
+        </dependency>
 
 
     </dependencies>

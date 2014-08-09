@@ -4,12 +4,14 @@ import com.jonda.rbac.dao.PermissionManageDao;
 import com.jonda.rbac.domain.Permission;
 import com.jonda.rbac.service.PermissionManageService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 
 /**
  * Created by rejoady on 2014/7/28.
  */
+@Transactional
 @Service("permissionManageService")
 public class PermissionManageServiceImpl implements PermissionManageService {
 
