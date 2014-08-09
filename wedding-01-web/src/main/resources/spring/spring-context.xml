@@ -39,23 +39,23 @@
     </bean>
 
 	<!-- MyBatis配置 -->
-	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="dataSource" />
-		<!-- 自动扫描entity目录, 省掉Configuration.xml里的手工配置 -->
-		<property name="typeAliasesPackage" value="com.jonda.erp.wedding.domain" />
-		<!-- 显式指定Mapper文件位置 -->
-		<property name="mapperLocations">
-            <array>
-                <value>classpath*:/mybatis/*.xml</value>
-            </array>
-		</property>
-	</bean>
+	<!--<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">-->
+		<!--<property name="dataSource" ref="dataSource" />-->
+		<!--&lt;!&ndash; 自动扫描entity目录, 省掉Configuration.xml里的手工配置 &ndash;&gt;-->
+		<!--<property name="typeAliasesPackage" value="com.jonda" />-->
+		<!--&lt;!&ndash; 显式指定Mapper文件位置 &ndash;&gt;-->
+		<!--<property name="mapperLocations">-->
+            <!--<array>-->
+                <!--<value>classpath*:/mybatis/**/*.xml</value>-->
+            <!--</array>-->
+		<!--</property>-->
+	<!--</bean>-->
 
 	<!-- 扫描basePackage下所有以@MyBatisRepository标识的 接口-->
-	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.jonda.erp.wedding.dao" />
-		<property name="annotationClass" value="com.jonda.common.dao.MyBatisRepository"/>
-	</bean>
+	<!--<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">-->
+		<!--<property name="basePackage" value="com.jonda.erp.wedding.dao" />-->
+		<!--<property name="annotationClass" value="com.jonda.common.dao.MyBatisRepository"/>-->
+	<!--</bean>-->
 
     <!-- 另一个事务管理器, Jdbc单数据源事务 -->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">

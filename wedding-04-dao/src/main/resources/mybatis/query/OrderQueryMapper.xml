@@ -3,16 +3,66 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- namespace必须指向Dao接口 -->
 <mapper namespace="com.jonda.erp.wedding.dao.order.OrderQueryDao">
-    <!--
-        获取用户: 输出直接映射到对象, login_name列要"as loginName"以方便映射 ,team_id as "team.id"创建team对象并赋值
-    -->
-    <!--<insert id="save" parameterType="User">
-        INSERT INTO user (name, login_name, password, salt, creator, create_time, modifier, modify_time)
-        VALUES (#{name},#{loginName},#{password},#{salt},#{creator},current_timestamp(),#{modifier},current_timestamp())
-    </insert>-->
 
+    <resultMap id="default_result_map" type="OrderQueryResult">
+        <id column="id" property="id"/>
+        <result column="bride_name" property="brideName"/>
+        <result column="bride_telephone" property="brideTelephone"/>
+        <result column="bridegroom_name" property="bridegroomName"/>
+        <result column="bridegroom_telephone" property="bridegroomTelephone"/>
+        <result column="wedding_date" property="weddingDate"/>
+        <result column="order_status" property="status"/>
+        <result column="creator" property="creator"/>
+        <result column="create_time" property="createTime"/>
+        <result column="modifier" property="modifier"/>
+        <result column="modify_time" property="modifyTime"/>
+    </resultMap>
 
-    <select id="queryOrderPage">
-
+    <select id="queryOrderPage" resultMap="default_result_map" parameterType="OrderQueryParam">
+        select
+            o.id as id,
+            o.bride_name as bride_name,
+            o.bride_telephone as bride_telephone,
+            o.bridegroom_name as bridegroom_name,
+            o.bridegroom_telephone as bridegroom_telephone,
+            o.wedding_date as wedding_date,
+            o.order_status as order_status,
+            o.creator as creator,
+            o.create_time as create_time,
+            o.modifier as modifier,
+            o.modify_time as modify_time
+        from wedding_order o
+        where o.data_status=1
+        <include refid="query_conditions"/>
+        <include refid="com.jonda.rbac.dao.CommonDao.pageConditions"/>
     </select>
+
+    <select id="queryOrderPage_count" resultType="int" parameterType="OrderQueryParam">
+        select count(1)
+        from wedding_order o
+        where o.data_status=1
+        <include refid="query_conditions"/>
+    </select>
+
+    <sql id="query_conditions">
+
+        <if test="brideName != null and brideName != ''">
+            and o.bride_name = #{brideName}
+        </if>
+        <if test="brideTelephone != null and brideTelephone != ''">
+            and o.bride_telephone = #{brideTelephone}
+        </if>
+        <if test="bridegroomName != null and bridegroomName != ''">
+            and o.bridegroom_name = #{brideName}
+        </if>
+        <if test="bridegroomTelephone != null and bridegroomTelephone != ''">
+            and o.bridegroom_telephone = #{bridegroomTelephone}
+        </if>
+        <if test="weddingDate != null and weddingDate != ''">
+            and o.wedding_date = #{weddingDate}
+        </if>
+        <if test="status != null and status != ''">
+            and o.order_status = #{status}
+        </if>
+    </sql>
 </mapper>

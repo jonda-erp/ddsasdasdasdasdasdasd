@@ -12,6 +12,4 @@ import com.jonda.erp.wedding.dto.order.OrderQueryResult;
 @MyBatisRepository
 public interface OrderQueryDao {
 
-    public Page<OrderQueryResult> queryOrderPage(OrderQueryParam param);
-
 }
