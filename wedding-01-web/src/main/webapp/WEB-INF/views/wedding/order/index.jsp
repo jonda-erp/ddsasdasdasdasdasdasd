@@ -41,11 +41,11 @@
 <div class="pageContent">
 <div class="panelBar">
     <ul class="toolBar">
-        <li><a class="add" href="${ctx}/rbac/user/add" target="dialog" width="480" rel="user_add_dialog"><span>添加</span></a></li>
-        <li><a class="delete" href="${ctx}/rbac/user/delete?id={sid_user}" target="ajaxTodo" title="确定要删除吗？" warn="请选择一个用户"><span>删除</span></a></li>
-        <li><a class="edit" href="${ctx}/rbac/user/modify?id={sid_user}" target="dialog" width="480" rel="user_modify_dialog" warn="请选择一条记录"><span>修改</span></a></li>
+        <li><a class="add" href="${ctx}/order/add" target="dialog" width="980" height="550" rel="order_add_dialog"><span>创建订单</span></a></li>
+        <li><a class="edit" href="${ctx}/rbac/user/modify?id={sid_user}" target="dialog" width="480" rel="order_modify_dialog" warn="请选择一条记录"><span>修改订单</span></a></li>
         <li class="line">line</li>
-        <li><a class="icon" href="${ctx}/rbac/user/distributeDialog?userId={sid_user}" target="dialog" targetType="user_distribute_dialog" warn="请选择一条记录"><span>分配角色</span></a></li>
+        <li><a class="icon" href="${ctx}/rbac/user/distributeDialog?userId={sid_user}" target="dialog" targetType="order_distribute_dialog" warn="请选择一条记录"><span>修改合同</span></a></li>
+        <li><a class="icon" href="${ctx}/rbac/user/distributeDialog?userId={sid_user}" target="dialog" targetType="order_distribute_dialog" warn="请选择一条记录"><span>填写发票</span></a></li>
         <li class="line">line</li>
         <li><a class="edit" href="${ctx}/rbac/user/modifyPassword?id={sid_user}" target="dialog" width="480" rel="user_modify_password_dialog" warn="请选择一条记录"><span>重置登录密码</span></a></li>
     </ul>

@@ -6,8 +6,7 @@
     <ul class="tree treeFolder">
         <li><a>订单管理</a>
             <ul>
-                <li><a href="w_panel.html" target="navTab" rel="w_panel">订单创建</a></li>
-                <li><a href="${ctx}/order/query" target="navTab" rel="navTab_wedding_order">订单查询</a></li>
+                <li><a href="${ctx}/order/query" target="navTab" rel="navTab_wedding_order">订单管理</a></li>
             </ul>
         </li>
         <li><a>客户管理</a>

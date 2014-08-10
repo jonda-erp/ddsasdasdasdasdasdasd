@@ -4,6 +4,8 @@ import com.jonda.common.dto.Page;
 import com.jonda.erp.wedding.biz.OrderQueryBiz;
 import com.jonda.erp.wedding.dto.order.OrderQueryParam;
 import com.jonda.erp.wedding.dto.order.OrderQueryResult;
+import com.jonda.erp.wedding.enums.ProductTypeEnum;
+import com.jonda.erp.wedding.enums.UserTypeEnum;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +28,13 @@ public class OrderController {
         model.addAttribute("page", page);
         model.addAttribute("param", param);
         return "wedding/order/index";
+    }
+
+    @RequestMapping("/add")
+    public String add(Model model){
+        model.addAttribute("user_type", UserTypeEnum.values());
+        model.addAttribute("product_type", ProductTypeEnum.values());
+        return "wedding/order/add";
     }
 
 }
