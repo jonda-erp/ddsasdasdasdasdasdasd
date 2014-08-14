@@ -12,7 +12,7 @@ public class OrderManageBizImpl implements OrderManageBiz {
 
     @Override
     public Boolean createOrder(Order order) {
-        return null;
+        return Boolean.TRUE;
     }
 
     @Override
