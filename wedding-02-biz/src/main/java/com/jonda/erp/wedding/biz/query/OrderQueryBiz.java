@@ -1,4 +1,4 @@
-package com.jonda.erp.wedding.biz;
+package com.jonda.erp.wedding.biz.query;
 
 import com.jonda.common.dto.Page;
 import com.jonda.erp.wedding.dto.order.OrderQueryParam;

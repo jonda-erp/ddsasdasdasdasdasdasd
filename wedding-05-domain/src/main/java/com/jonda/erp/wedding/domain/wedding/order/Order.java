@@ -23,6 +23,8 @@ public class Order extends BaseDomain {
     private Date weddingDate;
     // 订单状态
     private String status;
+    // 备注
+    private String remark;
     // 订单对应的合同
     private Contract contract;
     // 订单对应开具的发票
@@ -74,6 +76,14 @@ public class Order extends BaseDomain {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 
     public Contract getContract() {

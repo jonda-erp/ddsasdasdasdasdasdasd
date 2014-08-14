@@ -12,6 +12,7 @@
         <result column="bridegroom_telephone" property="bridegroomTelephone"/>
         <result column="wedding_date" property="weddingDate"/>
         <result column="order_status" property="status"/>
+        <result column="remark" property="remark"/>
         <result column="creator" property="creator"/>
         <result column="create_time" property="createTime"/>
         <result column="modifier" property="modifier"/>
@@ -27,6 +28,7 @@
             o.bridegroom_telephone as bridegroom_telephone,
             o.wedding_date as wedding_date,
             o.order_status as order_status,
+            o.remark as remark,
             o.creator as creator,
             o.create_time as create_time,
             o.modifier as modifier,

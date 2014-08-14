@@ -21,6 +21,8 @@ public class OrderQueryResult extends BaseQueryResult {
     private Date weddingDate;
     // 订单状态
     private String status;
+    // 备注
+    private String remark;
 
     public String getBrideName() {
         return brideName;
@@ -68,5 +70,13 @@ public class OrderQueryResult extends BaseQueryResult {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 }

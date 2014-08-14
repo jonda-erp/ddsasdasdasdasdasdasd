@@ -2,6 +2,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <form id="pagerForm" method="post" action="${ctx}/rbac/user/index">
     <input type="hidden" name="pageNo" value="${page.pageNo}" />
@@ -43,11 +44,13 @@
     <ul class="toolBar">
         <li><a class="add" href="${ctx}/order/add" target="dialog" width="980" height="550" rel="order_add_dialog"><span>创建订单</span></a></li>
         <li><a class="edit" href="${ctx}/rbac/user/modify?id={sid_user}" target="dialog" width="480" rel="order_modify_dialog" warn="请选择一条记录"><span>修改订单</span></a></li>
+        <li><a class="edit" href="${ctx}/rbac/user/modify?id={sid_user}" target="dialog" width="480" rel="order_modify_dialog" warn="请选择一条记录"><span>查看详情</span></a></li>
         <li class="line">line</li>
-        <li><a class="icon" href="${ctx}/rbac/user/distributeDialog?userId={sid_user}" target="dialog" targetType="order_distribute_dialog" warn="请选择一条记录"><span>修改合同</span></a></li>
-        <li><a class="icon" href="${ctx}/rbac/user/distributeDialog?userId={sid_user}" target="dialog" targetType="order_distribute_dialog" warn="请选择一条记录"><span>填写发票</span></a></li>
+        <li><a class="edit" href="${ctx}/rbac/user/distributeDialog?userId={sid_user}" target="dialog" targetType="order_distribute_dialog" warn="请选择一条记录"><span>修改合同</span></a></li>
+        <li><a class="edit" href="${ctx}/rbac/user/distributeDialog?userId={sid_user}" target="dialog" targetType="order_distribute_dialog" warn="请选择一条记录"><span>发票管理</span></a></li>
         <li class="line">line</li>
-        <li><a class="edit" href="${ctx}/rbac/user/modifyPassword?id={sid_user}" target="dialog" width="480" rel="user_modify_password_dialog" warn="请选择一条记录"><span>重置登录密码</span></a></li>
+        <li><a class="edit" href="${ctx}/rbac/user/distributeDialog?userId={sid_user}" target="dialog" targetType="order_distribute_dialog" warn="请选择一条记录"><span>管理人员需求</span></a></li>
+        <li><a class="edit" href="${ctx}/rbac/user/distributeDialog?userId={sid_user}" target="dialog" targetType="order_distribute_dialog" warn="请选择一条记录"><span>管理道具需求</span></a></li>
     </ul>
 </div>
 
@@ -55,16 +58,17 @@
 <table class="list" width="98%" targetType="navTab" asc="asc" desc="desc" layoutH="116">
 <thead>
 <tr>
-    <th width="120" orderField="brideName" class="asc">新娘姓名</th>
-    <th width="120" orderField="brideTelephone" class="desc">新娘电话</th>
-    <th width="120" orderField="bridegroomName" >新郎姓名</th>
-    <th width="120" orderField="bridegroomName" >新郎电话</th>
-    <th width="120" orderField="bridegroomName" >婚庆日期</th>
+    <th width="80" orderField="brideName" class="asc">新娘姓名</th>
+    <th width="100" orderField="brideTelephone" class="desc">新娘电话</th>
+    <th width="80" orderField="bridegroomName" >新郎姓名</th>
+    <th width="100" orderField="bridegroomName" >新郎电话</th>
+    <th width="100" orderField="bridegroomName" >婚庆日期</th>
     <th width="60">订单状态</th>
-    <th width="120">创建人</th>
-    <th width="140">创建时间</th>
-    <th width="120">最后修改人</th>
-    <th width="140">最后修改时间</th>
+    <th>备注</th>
+    <th width="80">创建人</th>
+    <th width="130">创建时间</th>
+    <th width="80">最后修改人</th>
+    <th width="130">最后修改时间</th>
 </tr>
 </thead>
 <tbody>
@@ -76,6 +80,16 @@
         <td>${item.bridegroomTelephone}</td>
         <td><fmt:formatDate value="${item.weddingDate}" pattern="yyyy-MM-dd"/></td>
         <td>${item.status}</td>
+        <td>
+            <c:choose>
+                <c:when test="${item.remark != null and item.remark.length() > 15}">
+                    ${fn:substring(item.remark, 0, 15)}...
+                </c:when>
+                <c:otherwise>
+                    ${item.remark}
+                </c:otherwise>
+            </c:choose>
+        </td>
         <td>${item.creator}</td>
         <td><fmt:formatDate value="${item.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
         <td>${item.modifier}</td>
