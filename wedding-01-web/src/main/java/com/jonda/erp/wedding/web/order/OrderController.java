@@ -67,6 +67,7 @@ public class OrderController extends BaseController {
         }
         // 设置操作人员信息
         JondaRbacUtil.setDataOperateInfo(order);
+        JondaRbacUtil.setDataOperateInfo(order.getContract());
         // 保存数据
         orderManageBiz.createOrder(order);
         ajaxResult = new AjaxResult("navTab_wedding_order", "closeCurrent", "操作成功！");

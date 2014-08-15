@@ -79,9 +79,9 @@
 <div id="layout">
 <div id="header">
     <div class="headerNav">
-        <a class="logo" href="http://j-ui.com">标志</a>
+        <a class="logo" href="${ctx}/">标志</a>
         <ul class="nav">
-            <li><a href="http://weibo.com/dwzui" target="_blank">首页</a></li>
+            <li><a href="${ctx}/">首页</a></li>
             <li><a href="${ctx}/rbac/logout">退出</a></li>
         </ul>
         <ul class="themeList" id="themeList">
@@ -137,9 +137,9 @@
 
                 </div>
 
-                <div style="width:230px;position: absolute;top:60px;right:0" layoutH="80">
-                    <iframe width="100%" height="430" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?width=0&height=430&fansRow=2&ptype=1&skin=1&isTitle=0&noborder=1&isWeibo=1&isFans=0&uid=1739071261&verifier=c683dfe7"></iframe>
-                </div>
+                <%--<div style="width:230px;position: absolute;top:60px;right:0" layoutH="80">--%>
+                    <%--<iframe width="100%" height="430" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?width=0&height=430&fansRow=2&ptype=1&skin=1&isTitle=0&noborder=1&isWeibo=1&isFans=0&uid=1739071261&verifier=c683dfe7"></iframe>--%>
+                <%--</div>--%>
             </div>
 
         </div>
