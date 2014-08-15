@@ -36,6 +36,7 @@
         from wedding_order o
         where o.data_status=1
         <include refid="query_conditions"/>
+        order by o.create_time desc
         <include refid="com.jonda.rbac.dao.CommonDao.pageConditions"/>
     </select>
 

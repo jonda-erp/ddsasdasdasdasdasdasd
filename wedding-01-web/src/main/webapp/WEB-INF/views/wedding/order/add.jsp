@@ -1,13 +1,13 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <style type="text/css">
-    .pageContent .panel {margin-top: 5px;}
-    .pageFormContent {margin: 0px;}
+    .pageFormContent {margin: 0px; padding: 0px;}
+    .pageContent {padding: 0px;}
 </style>
 
 <div class="pageContent">
     <form action="${ctx}/order/doAdd" method="post" class="pageForm" onsubmit="return validateCallback(this, dialogAjaxDone)">
-        <div class="pageFormContent" layoutH="38">
+        <div class="pageFormContent" layoutH="40">
             <div class="panel">
                 <h1>基本信息</h1>
                 <div class="panelContent">
@@ -47,7 +47,7 @@
                     <dl class="nowrap">
                         <dt>合同内容：</dt>
                         <dd>
-                            <textarea class="editor" name="contract.content" rows="16" cols="110" tools="mini"></textarea>
+                            <textarea class="editor" name="contract.content" rows="16" cols="104" tools="mini"></textarea>
                         </dd>
                     </dl>
                 </div>

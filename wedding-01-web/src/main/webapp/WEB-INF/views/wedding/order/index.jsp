@@ -42,7 +42,7 @@
 <div class="pageContent">
 <div class="panelBar">
     <ul class="toolBar">
-        <li><a class="add" href="${ctx}/order/add" target="dialog" width="980" height="550" rel="order_add_dialog"><span>创建订单</span></a></li>
+        <li><a class="add" href="${ctx}/order/add" target="dialog" width="980" height="578" rel="order_add_dialog"><span>创建订单</span></a></li>
         <li><a class="edit" href="${ctx}/rbac/user/modify?id={sid_user}" target="dialog" width="480" rel="order_modify_dialog" warn="请选择一条记录"><span>修改订单</span></a></li>
         <li><a class="edit" href="${ctx}/rbac/user/modify?id={sid_user}" target="dialog" width="480" rel="order_modify_dialog" warn="请选择一条记录"><span>查看详情</span></a></li>
         <li class="line">line</li>
