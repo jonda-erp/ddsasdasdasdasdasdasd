@@ -9,7 +9,7 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>婚庆企业管理平台</title>
+    <title>婚庆企业管理平台123</title>
 
     <link href="${ctx}/static/dwz/themes/default/style.css" rel="stylesheet" type="text/css" media="screen"/>
     <link href="${ctx}/static/dwz/themes/css/core.css" rel="stylesheet" type="text/css" media="screen"/>
