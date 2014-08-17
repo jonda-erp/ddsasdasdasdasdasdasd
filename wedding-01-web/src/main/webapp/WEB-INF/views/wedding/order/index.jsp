@@ -4,32 +4,60 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
-<form id="pagerForm" method="post" action="${ctx}/rbac/user/index">
+<form id="pagerForm" method="post" action="${ctx}/order/query">
     <input type="hidden" name="pageNo" value="${page.pageNo}" />
     <input type="hidden" name="pageSize" value="${page.pageSize}" />
     <input type="hidden" name="orderField" value="${param.orderField}" />
     <input type="hidden" name="orderDirection" value="${param.orderDirection}" />
 </form>
 <div class="pageHeader">
-    <form rel="pagerForm" onsubmit="return navTabSearch(this);" action="${ctx}/rbac/user/index" method="post">
+    <form rel="pagerForm" onsubmit="return navTabSearch(this);" action="${ctx}/order/query" method="post">
         <div class="searchBar">
-            <ul class="searchContent">
-                <li>
-                    <label>登录帐号：</label>
-                    <input type="text" name="loginName" value="${param.loginName}" alt="输入登录帐号"/>
-                </li>
-                <li>
-                    <label>姓名：</label>
-                    <input type="text" name="name" value="${param.name}" alt="输入姓名"/>
-                </li>
-                <li>
-                    <label>部门：</label>
-                    <input name="department.id" postField="departmentId" value="${param.departmentId}" type="hidden"/>
-                    <input name="department.name" postField="departmentName" type="text" value="${departmentName}" readonly="readonly"/>
-                    <a class="btnLook" href="${ctx}/rbac/department/dialog" lookupGroup="department">查找带回</a>
-                </li>
-            </ul>
-
+            <div class="pageFormContent">
+                <p>
+                    <label>新娘姓名：</label>
+                    <input type="text" name="brideName" value="${param.brideName}"/>
+                </p>
+                <p>
+                    <label>新娘电话：</label>
+                    <input type="text" name="brideTelephone" value="${param.brideTelephone}"/>
+                </p>
+                <p>
+                    <label>新郎姓名：</label>
+                    <input type="text" name="bridegroomName" value="${param.bridegroomName}"/>
+                </p>
+                <p>
+                    <label>新郎电话：</label>
+                    <input type="text" name="bridegroomTelephone" value="${param.bridegroomTelephone}"/>
+                </p>
+                <p>
+                    <label>订单状态：</label>
+                    <select class="combox" name="status">
+                        <option value="">全部</option>
+                        <c:forEach var="item" items="${orderStatusEnum}">
+                            <c:choose>
+                                <c:when test="${item.code == param.status}">
+                                    <option value="${item.code}" selected="selected">${item.message}</option>
+                                </c:when>
+                                <c:otherwise>
+                                    <option value="${item.code}">${item.message}</option>
+                                </c:otherwise>
+                            </c:choose>
+                        </c:forEach>
+                    </select>
+                </p>
+                <div class="divider"></div>
+                <p>
+                    <label>婚庆日期：</label>
+                    <input name="ssDate" class="date" value="${ssDate}" readonly="readonly" class="required" type="text">
+                    <a href="javascript:void(0)" class="inputDateButton">选择</a>
+                </p>
+                <p>
+                    <label>-</label>
+                    <input name="seDate" class="date" value="${seDate}" readonly="readonly" class="required" type="text">
+                    <a href="javascript:void(0)" class="inputDateButton">选择</a>
+                </p>
+            </div>
             <div class="subBar">
                 <ul>
                     <li><div class="buttonActive"><div class="buttonContent"><button type="submit">查询</button></div></div></li>

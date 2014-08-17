@@ -56,13 +56,20 @@
             and o.bride_telephone = #{brideTelephone}
         </if>
         <if test="bridegroomName != null and bridegroomName != ''">
-            and o.bridegroom_name = #{brideName}
+            and o.bridegroom_name = #{bridegroomName}
         </if>
         <if test="bridegroomTelephone != null and bridegroomTelephone != ''">
             and o.bridegroom_telephone = #{bridegroomTelephone}
         </if>
-        <if test="weddingDate != null and weddingDate != ''">
-            and o.wedding_date = #{weddingDate}
+        <if test="startWeddingDate != null">
+            <![CDATA[
+            and o.wedding_date >= #{startWeddingDate}
+            ]]>
+        </if>
+        <if test="endWeddingDate != null">
+            <![CDATA[
+            and o.wedding_date <= #{endWeddingDate}
+            ]]>
         </if>
         <if test="status != null and status != ''">
             and o.order_status = #{status}

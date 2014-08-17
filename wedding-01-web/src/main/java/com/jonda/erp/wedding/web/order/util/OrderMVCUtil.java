@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -43,6 +44,17 @@ public class OrderMVCUtil {
             }
         }
         return order;
+    }
+
+    public static Date string2Date(String date, String format) {
+        if (StringUtils.isNotBlank(date)) {
+            try {
+                return new JondaDateParser(format).parse(date);
+            } catch (Exception ex) {
+                logger.error("用户输入日期格式错误, 转换发生异常，message:{}", ex.getMessage(), ex);
+            }
+        }
+        return null;
     }
 
     /**

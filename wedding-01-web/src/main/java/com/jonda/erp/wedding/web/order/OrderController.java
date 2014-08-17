@@ -8,6 +8,7 @@ import com.jonda.erp.wedding.biz.query.OrderQueryBiz;
 import com.jonda.erp.wedding.domain.wedding.order.Order;
 import com.jonda.erp.wedding.dto.order.OrderQueryParam;
 import com.jonda.erp.wedding.dto.order.OrderQueryResult;
+import com.jonda.erp.wedding.enums.OrderStatusEnum;
 import com.jonda.erp.wedding.enums.ProductTypeEnum;
 import com.jonda.erp.wedding.enums.UserTypeEnum;
 import com.jonda.erp.wedding.web.order.checker.OrderParamChecker;
@@ -40,10 +41,15 @@ public class OrderController extends BaseController {
     private static final Logger logger = LoggerFactory.getLogger(OrderController.class);
 
     @RequestMapping("/query")
-    public String query(Model model, OrderQueryParam param){
+    public String query(Model model, OrderQueryParam param, String ssDate, String seDate){
+        param.setStartWeddingDate(OrderMVCUtil.string2Date(ssDate, "yyyy-MM-dd"));
+        param.setEndWeddingDate(OrderMVCUtil.string2Date(seDate, "yyyy-MM-dd"));
         Page<OrderQueryResult> page = orderQueryBiz.queryOrder(param);
         model.addAttribute("page", page);
         model.addAttribute("param", param);
+        model.addAttribute("ssDate", ssDate);
+        model.addAttribute("seDate", seDate);
+        model.addAttribute("orderStatusEnum", OrderStatusEnum.values());
         return "wedding/order/index";
     }
 
@@ -72,5 +78,11 @@ public class OrderController extends BaseController {
         orderManageBiz.createOrder(order);
         ajaxResult = new AjaxResult("navTab_wedding_order", "closeCurrent", "操作成功！");
         return ajaxResult(ajaxResult);
+    }
+
+    @RequestMapping("/modify")
+    public String modify(Model model, Long id) {
+
+        return "wedding/order/modify";
     }
 }
