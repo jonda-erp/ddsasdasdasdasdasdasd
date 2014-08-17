@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.jonda.erp.wedding.dao.order.InvoiceQueryDao">
+
+    <resultMap id="default_result_map" type="InvoiceQueryResult">
+        <id column="id" property="id"/>
+        <result column="user_name" property="userName"/>
+        <result column="fund_type" property="type"/>
+        <result column="amount" property="amount"/>
+        <result column="abstract" property="remark"/>
+        <result column="creator" property="creator"/>
+        <result column="create_time" property="createTime"/>
+        <result column="modifier" property="modifier"/>
+        <result column="modify_time" property="modifyTime"/>
+        <association property="order" javaType="OrderQueryResult">
+            <id column="order_id" property="id"/>
+            <result column="bride_name" property="brideName"/>
+            <result column="bride_telephone" property="brideTelephone"/>
+            <result column="bridegroom_name" property="bridegroomName"/>
+            <result column="bridegroom_telephone" property="bridegroomTelephone"/>
+            <result column="wedding_date" property="weddingDate"/>
+            <result column="order_status" property="status"/>
+            <result column="order_remark" property="remark"/>
+        </association>
+    </resultMap>
+
+    <select id="getInvoiceByOrderId" resultMap="default_result_map" parameterType="long">
+        select
+            i.id as id,
+            i.fund_type as fund_type,
+            i.amount as amount,
+            i.abstract as abstract,
+            i.creator as creator,
+            i.create_time as create_time,
+            i.modifier as modifier,
+            i.modify_time as modify_time,
+
+            u.name as user_name,
+
+            o.id as order_id,
+            o.bride_name as bride_name,
+            o.bride_telephone as bride_telephone,
+            o.bridegroom_name as bridegroom_name,
+            o.bridegroom_telephone as bridegroom_telephone,
+            o.wedding_date as wedding_date,
+            o.order_status as order_status,
+            o.remark as order_remark
+        from wedding_invoice i
+        left join wedding_order o on i.order_id = o.id
+        left join rbac_user u on i.invoice_person_id = u.id
+        where i.data_status=1
+        and i.order_id=#{orderId}
+        order by o.create_time desc
+    </select>
+
+</mapper>
