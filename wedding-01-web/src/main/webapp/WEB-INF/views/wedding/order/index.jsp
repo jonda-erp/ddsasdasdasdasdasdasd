@@ -86,6 +86,8 @@
 <table class="list" width="98%" targetType="navTab" asc="asc" desc="desc" layoutH="116">
 <thead>
 <tr>
+    <th width="100" orderField="brideName" class="asc">订单号</th>
+    <th width="100" orderField="brideName">合同号</th>
     <th width="80" orderField="brideName" class="asc">新娘姓名</th>
     <th width="100" orderField="brideTelephone" class="desc">新娘电话</th>
     <th width="80" orderField="bridegroomName" >新郎姓名</th>
@@ -101,7 +103,9 @@
 </thead>
 <tbody>
 <c:forEach var="item" items="${page.data}">
-    <tr target="sid_user" rel="${item.id}">
+    <tr target="sid_user" rel="${item.orderId}">
+        <td>${item.orderId}</td>
+        <td>${item.contractId}</td>
         <td>${item.brideName}</td>
         <td>${item.brideTelephone}</td>
         <td>${item.bridegroomName}</td>
