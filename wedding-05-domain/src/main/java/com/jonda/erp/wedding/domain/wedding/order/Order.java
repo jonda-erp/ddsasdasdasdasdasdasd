@@ -2,6 +2,8 @@ package com.jonda.erp.wedding.domain.wedding.order;
 
 import com.jonda.common.domain.BaseDomain;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
 
@@ -14,12 +16,15 @@ public class Order extends BaseDomain {
     // 新娘姓名
     private String brideName;
     // 新娘电话
+    @NotNull(message = "新娘电话不能为空")
+    @Min(value = 1,message = "新娘电话不能为空")
     private String brideTelephone;
     // 新郎姓名
     private String bridegroomName;
     // 新郎电话
     private String bridegroomTelephone;
     // 婚庆日期
+    @NotNull(message = "婚庆日期不能为空")
     private Date weddingDate;
     // 订单状态
     private String status;

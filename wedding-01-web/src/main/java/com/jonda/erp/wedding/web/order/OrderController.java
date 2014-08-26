@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 /**
  * Created by rejoady on 2014/8/9.
@@ -67,7 +68,7 @@ public class OrderController extends BaseController {
         // 将传入的String类型的参数转换成Date
         order = OrderMVCUtil.setWeddingDate(order, request);
         // 参数校验
-        ajaxResult = OrderParamChecker.checkParam(order);
+        ajaxResult = super.checkParam(order);
         if (ajaxResult != null) {
             return ajaxResult(ajaxResult);
         }
