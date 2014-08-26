@@ -15,7 +15,8 @@
         <result column="modifier" property="modifier"/>
         <result column="modify_time" property="modifyTime"/>
         <association property="order" javaType="OrderQueryResult">
-            <id column="order_id" property="id"/>
+            <id column="order_id" property="orderId"/>
+            <result column="contract_id" property="contractId"/>
             <result column="bride_name" property="brideName"/>
             <result column="bride_telephone" property="brideTelephone"/>
             <result column="bridegroom_name" property="bridegroomName"/>
@@ -39,7 +40,8 @@
 
             u.name as user_name,
 
-            o.id as order_id,
+            o.order_id as order_id,
+            o.contract_id as contract_id,
             o.bride_name as bride_name,
             o.bride_telephone as bride_telephone,
             o.bridegroom_name as bridegroom_name,
@@ -48,7 +50,7 @@
             o.order_status as order_status,
             o.remark as order_remark
         from wedding_invoice i
-        left join wedding_order o on i.order_id = o.id
+        left join wedding_order o on i.order_id = o.order_id
         left join rbac_user u on i.invoice_person_id = u.id
         where i.data_status=1
         and i.order_id=#{orderId}
