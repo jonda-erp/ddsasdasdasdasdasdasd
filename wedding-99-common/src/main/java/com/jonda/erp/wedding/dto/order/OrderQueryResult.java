@@ -9,6 +9,10 @@ import java.util.Date;
  */
 public class OrderQueryResult extends BaseQueryResult {
 
+    //订单号
+    private String orderId;
+    //合同号
+    private String contractId;
     // 新娘姓名
     private String brideName;
     // 新娘电话
@@ -23,6 +27,22 @@ public class OrderQueryResult extends BaseQueryResult {
     private String status;
     // 备注
     private String remark;
+
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
+    }
+
+    public String getContractId() {
+        return contractId;
+    }
+
+    public void setContractId(String contractId) {
+        this.contractId = contractId;
+    }
 
     public String getBrideName() {
         return brideName;

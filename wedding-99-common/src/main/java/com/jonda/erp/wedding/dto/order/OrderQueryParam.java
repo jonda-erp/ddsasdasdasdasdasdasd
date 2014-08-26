@@ -8,7 +8,10 @@ import java.util.Date;
  * Created by rejoady on 2014/8/8.
  */
 public class OrderQueryParam extends BasePageQueryParam {
-
+    //订单号
+    private String orderId;
+    //合同号
+    private String contractId;
     // 新娘姓名
     private String brideName;
     // 新娘电话
@@ -23,6 +26,22 @@ public class OrderQueryParam extends BasePageQueryParam {
     private Date endWeddingDate;
     // 订单状态
     private String status;
+
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
+    }
+
+    public String getContractId() {
+        return contractId;
+    }
+
+    public void setContractId(String contractId) {
+        this.contractId = contractId;
+    }
 
     public String getBrideName() {
         return brideName;
