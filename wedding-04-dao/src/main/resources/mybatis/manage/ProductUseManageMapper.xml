@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.jonda.erp.wedding.dao.product.ProductUseManageDao">
+
+    <resultMap id="default_result_map" type="ProductUseParam">
+        <id column="id" property="id"/>
+        <result column="contract_id" property="contractId"/>
+        <result column="product_id" property="productId"/>
+        <result column="product_count" property="productCount"/>
+        <result column="creator" property="creator"/>
+        <result column="create_time" property="createTime"/>
+        <result column="modifier" property="modifier"/>
+        <result column="modify_time" property="modifyTime"/>
+    </resultMap>
+
+    <select id="insertProductUse" resultMap="default_result_map" parameterType="ProductUseParam">
+        insert into wedding_product_use
+        (contract_id,product_id,product_count,creator,create_time,modifier,modify_time)
+        values
+        (#{contractId},#{productId},#{productCount},#{creator},#{createTime},#{modifier},#{modifyTime})
+    </select>
+
+    <select id="updateProductUse" resultMap="default_result_map" parameterType="ProductUseParam">
+        insert into wedding_product_use
+        (contract_id,product_id,product_count,creator,create_time,modifier,modify_time)
+        values
+        (#{contractId},#{productId},#{productCount},#{creator},#{createTime},#{modifier},#{modifyTime})
+    </select>
+
+    <select id="deleteProductUse" resultMap="default_result_map" parameterType="ProductUseParam">
+        update wedding_product_use
+        set data_status=0
+        where id=#{id}
+        <include refid="prod_conditions"/>
+    </select>
+
+
+    <sql id="prod_conditions">
+
+        <if test="contractId != null and contractId != ''">
+            and o.contract_id = #{contractId}
+        </if>
+        <if test="productId != null and productId != ''">
+            and o.product_id = #{productId}
+        </if>
+        <if test="productCount != null and productCount != ''">
+            and o.product_count = #{productCount}
+        </if>
+        <if test="creator != null and creator != ''">
+            and o.creator = #{creator}
+        </if>
+        <if test="createTime != null">
+            <![CDATA[
+            and o.create_time >= #{createTime}
+            ]]>
+        </if>
+        <if test="modifier != null and modifier != ''">
+            and o.modifier = #{modifier}
+        </if>
+        <if test="modify_time != null">
+            <![CDATA[
+            and o.modifyTime <= #{modifyTime}
+            ]]>
+        </if>
+    </sql>
+</mapper>
