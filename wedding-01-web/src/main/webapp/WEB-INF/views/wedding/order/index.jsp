@@ -86,8 +86,8 @@
 <table class="list" width="98%" targetType="navTab" asc="asc" desc="desc" layoutH="116">
 <thead>
 <tr>
-    <th width="100" orderField="brideName" class="asc">订单号</th>
-    <th width="100" orderField="brideName">合同号</th>
+    <th width="140" orderField="brideName" class="asc">订单号</th>
+    <th width="140" orderField="brideName">合同号</th>
     <th width="80" orderField="brideName" class="asc">新娘姓名</th>
     <th width="100" orderField="brideTelephone" class="desc">新娘电话</th>
     <th width="80" orderField="bridegroomName" >新郎姓名</th>
