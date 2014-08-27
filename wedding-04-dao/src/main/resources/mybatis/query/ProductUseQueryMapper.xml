@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.jonda.erp.wedding.dao.product.ProductUseQueryDao">
+
+    <resultMap id="query_result_map" type="ProductUseParam">
+        <id column="id" property="id"/>
+        <result column="contract_id" property="contractId"/>
+        <result column="product_id" property="productId"/>
+        <result column="product_count" property="productCount"/>
+        <result column="creator" property="creator"/>
+        <result column="create_time" property="createTime"/>
+        <result column="modifier" property="modifier"/>
+        <result column="modify_time" property="modifyTime"/>
+    </resultMap>
+
+    <select id="queryProductUsePage" resultMap="query_result_map" parameterType="ProductUseParam">
+        select o.id as id,
+        o.contract_id as contract_id,
+        o.product_id as product_id,
+        o.product_count as product_count,
+        o.creator as creator,
+        o.create_time as create_time,
+        o.modifier as modifier,
+        o.modify_time as modify_time
+        from wedding_product_use o
+        where o.data_status=1
+        <include refid="query_conditions"/>
+        order by o.create_time desc
+        <include refid="com.jonda.rbac.dao.CommonDao.pageConditions"/>
+    </select>
+
+    <select id="queryProductUsePage_count" resultType="int" parameterType="ProductUseParam">
+        select count(1)
+        from wedding_product_use o
+        where o.data_status=1
+        <include refid="query_conditions"/>
+    </select>
+
+    <sql id="query_conditions">
+        <if test="contractId != null and contractId != ''">
+            and o.contract_id = #{contractId}
+        </if>
+        <if test="productId != null and productId != ''">
+            and o.product_id = #{productId}
+        </if>
+        <if test="creator != null and creator != ''">
+            and o.creator = #{creator}
+        </if>
+        <if test="modifier != null and modifier != ''">
+            and o.modifier = #{modifier}
+        </if>
+        <if test="createTime != null">
+            <![CDATA[
+            and o.create_time >= #{createTime}
+            ]]>
+        </if>
+        <if test="modify_time != null">
+            <![CDATA[
+            and o.modify_time <= #{modify_time}
+            ]]>
+        </if>
+    </sql>
+</mapper>
