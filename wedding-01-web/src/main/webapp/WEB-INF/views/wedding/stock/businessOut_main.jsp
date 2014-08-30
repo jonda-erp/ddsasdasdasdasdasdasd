@@ -16,27 +16,27 @@
             <div class="pageFormContent">
                 <p>
                     <label>新娘姓名：</label>
-                    <input  type="text" name="brideName" size="30" value="${param.brideName}" />
+                    <input  type="text" name="brideName" size="30" value="" />
                 </p>
                 <p>
                     <label>新娘电话：</label>
-                    <input type="text" class="phone" name="brideTelephone" size="30" value="${param.brideTelephone}"/>
+                    <input type="text" class="phone" name="brideTelephone" size="30" value=""/>
                 </p>
                 <p>
                     <label>新郎姓名：</label>
-                    <input type="text" name="bridegroomName" size="30" value="${param.bridegroomName}"/>
+                    <input type="text" name="bridegroomName" size="30" value=""/>
                 </p>
                 <p>
                     <label>新郎电话：</label>
-                    <input type="text" name="bridegroomTelephone" size="30" value="${param.bridegroomTelephone}"/>
+                    <input type="text" name="bridegroomTelephone" size="30" value=""/>
                 </p>
                 <p>
                     <label>订单号：</label>
-                    <input type="text" name="orderId" size="30" value="${param.orderId}"/>
+                    <input type="text" name="orderId" size="30" value=""/>
                 </p>
                 <p>
                     <label>合同号：</label>
-                    <input type="text" name="contractId" size="30" value="${param.contractId}"/>
+                    <input type="text" name="contractId" size="30" value=""/>
                 </p>
                 <p>
                     <label>订单状态：</label>
@@ -81,9 +81,9 @@
 <div class="pageContent">
     <div class="panelBar">
         <ul class="toolBar">
-            <li><a class="add" href="${ctx}/stock/busiOutByContract" target="dialog" width="980" height="578" rel="order_add_dialog"><span>订单合同出库</span></a></li>
-            <li><a class="edit" href="${ctx}/rbac/user/modify?id={order_id}" target="dialog" width="480" rel="order_modify_dialog" warn="请选择一条记录"><span>订单额外出库</span></a></li>
-            <li><a class="edit" href="${ctx}/rbac/user/modify?id={order_id}" target="dialog" width="480" rel="order_modify_dialog" warn="请选择一条记录"><span>查看出库详情</span></a></li>
+            <li><a class="add" href="${ctx}/stock/busiOutByContract?id=C000120140826212725" target="dialog" width="980" height="578" rel="busi_out_dialog"><span>订单合同出库</span></a></li>
+            <li><a class="edit" href="${ctx}/rbac/user/modify?id={v_contract_id}" target="dialog" width="480" rel="order_modify_dialog" warn="请选择一条记录"><span>订单额外出库</span></a></li>
+            <li><a class="edit" href="${ctx}/rbac/user/modify?id={v_contract_id}" target="dialog" width="480" rel="order_modify_dialog" warn="请选择一条记录"><span>查看出库详情</span></a></li>
             <li class="line">line</li>
         </ul>
     </div>
@@ -109,7 +109,7 @@
             </thead>
             <tbody>
             <c:forEach var="item" items="${page.data}">
-                <tr target="sid_user" rel="${item.orderId}">
+                <tr target="v_contract_id" rel="${item.contractId}">
                     <td>${item.orderId}</td>
                     <td>${item.contractId}</td>
                     <td>${item.brideName}</td>
