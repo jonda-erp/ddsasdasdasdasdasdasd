@@ -19,13 +19,16 @@
         select o.id as id,
         o.contract_id as contract_id,
         o.product_id as product_id,
+        w.name as product_name,
+        w.type as product_type,
         o.product_count as product_count,
         o.creator as creator,
         o.create_time as create_time,
         o.modifier as modifier,
         o.modify_time as modify_time
-        from wedding_product_use o
+        from wedding_product_use o,wedding_product w
         where o.data_status=1
+        and o.product_id=w.id
         <include refid="query_conditions"/>
         order by o.create_time desc
         <include refid="com.jonda.rbac.dao.CommonDao.pageConditions"/>
