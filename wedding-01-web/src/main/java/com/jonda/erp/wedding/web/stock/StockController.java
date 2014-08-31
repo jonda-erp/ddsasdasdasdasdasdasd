@@ -3,8 +3,10 @@ package com.jonda.erp.wedding.web.stock;
 import com.jonda.common.dto.Page;
 import com.jonda.common.spring.web.BaseController;
 import com.jonda.erp.wedding.biz.query.OrderQueryBiz;
+import com.jonda.erp.wedding.biz.query.ProductUseQueryBiz;
 import com.jonda.erp.wedding.dto.order.OrderQueryParam;
 import com.jonda.erp.wedding.dto.order.OrderQueryResult;
+import com.jonda.erp.wedding.dto.product.ProductUseParam;
 import com.jonda.erp.wedding.enums.OrderStatusEnum;
 import com.jonda.erp.wedding.web.order.util.OrderMVCUtil;
 import org.slf4j.Logger;
@@ -21,6 +23,8 @@ import javax.annotation.Resource;
 @Controller
 @RequestMapping("/stock")
 public class StockController extends BaseController {
+    @Resource
+    private ProductUseQueryBiz productUseQueryBiz;
     @Resource
     private OrderQueryBiz orderQueryBiz;
 
@@ -45,7 +49,12 @@ public class StockController extends BaseController {
     }
 
     @RequestMapping("/busiOutByContract")
-    public String busiOutByContract(Model model,String contractId){
+    public String busiOutByContract(Model model,ProductUseParam param,int contractId){
+        param.setContractId(contractId);
+        logger.info("contractId="+String.valueOf(contractId));
+        Page<ProductUseParam> page = productUseQueryBiz.queryProductUse(param);
+        model.addAttribute("page", page);
+        model.addAttribute("param", param);
         return "wedding/stock/busiOutByContractId";
     }
 }
