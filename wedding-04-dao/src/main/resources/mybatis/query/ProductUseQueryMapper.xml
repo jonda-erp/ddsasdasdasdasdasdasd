@@ -59,7 +59,7 @@
             and o.create_time >= #{createTime}
             ]]>
         </if>
-        <if test="modify_time != null">
+        <if test="modifyTime != null">
             <![CDATA[
             and o.modify_time <= #{modify_time}
             ]]>
