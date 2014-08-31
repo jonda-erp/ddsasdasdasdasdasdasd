@@ -32,7 +32,10 @@
 </div>
 <div class="accordionContent">
     <ul class="tree treeFolder">
-        <li><a href="demo_page1.html" target="navTab" rel="demo_page1">采购管理</a></li>
+        <li><a href="${ctx}/stock/businessOut" target="navTab" rel="stock_purchase">业务出库</a></li>
+        <li><a href="${ctx}/stock/otherOut" target="navTab" rel="stock_purchase">其他出库</a></li>
+        <li><a href="${ctx}/stock/outOrder" target="navTab" rel="stock_purchase">出库订单</a></li>
+        <li><a href="${ctx}/stock/apply" target="navTab" rel="stock_purchase">采购申请</a></li>
         <li><a href="demo_page1.html" target="navTab" rel="demo_page2">调拨管理</a></li>
         <li><a href="demo_page4.html" target="navTab" rel="demo_page4">销售出库</a></li>
         <li><a href="demo_page5.html" target="navTab" rel="demo_page5">库存查询</a></li>
