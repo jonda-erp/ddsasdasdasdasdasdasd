@@ -13,14 +13,22 @@
         <result column="create_time" property="createTime"/>
         <result column="modifier" property="modifier"/>
         <result column="modify_time" property="modifyTime"/>
+        <association property="product" javaType="ProductParam">
+            <id column="product_id" property="productId"/>
+            <result column="product_name" property="productName"/>
+            <result column="product_type" property="productType"/>
+            <result column="description" property="description"/>
+        </association>
     </resultMap>
 
     <select id="queryProductUsePage" resultMap="query_result_map" parameterType="ProductUseParam">
         select o.id as id,
+        w.id as product_id,
         o.contract_id as contract_id,
         o.product_id as product_id,
         w.name as product_name,
         w.type as product_type,
+        w.description as description,
         o.product_count as product_count,
         o.creator as creator,
         o.create_time as create_time,
