@@ -25,11 +25,11 @@
                             <tbody>
                             <c:forEach var="item" items="${page.data}">
                                 <tr>
-                                    <td>${item.product_count}</td>
-                                    <td>${item.product_count}</td>
-                                    <td>${item.product_count}</td>
-                                    <td>${item.product_count}</td>
-                                    <td>${item.product_count}</td>
+                                    <td>${item.product.productName}</td>
+                                    <td>${item.productCount}</td>
+                                    <td>${item.productCount}</td>
+                                    <td>${item.productCount}</td>
+                                    <td>${item.productCount}</td>
                                 </tr>
                             </c:forEach>
                             </tbody>
