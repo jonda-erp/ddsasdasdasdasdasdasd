@@ -17,6 +17,7 @@
     <script type="text/javascript" src="${ctx}/static/easyui/jquery.min.js"></script>
     <script type="text/javascript" src="${ctx}/static/easyui/jquery.easyui.min.js"></script>
     <script type="text/javascript" src='${ctx}/static/easyui/outlook2.js'> </script>
+    <script type="text/javascript" src="${ctx}/static/easyui/locale/easyui-lang-zh_CN.js"></script>
     <style type="text/css">
         body
         {
@@ -94,9 +95,9 @@
     </style>
     <script type="text/javascript">
         var _menus = {"menus":[
-            {"menuid":"1","icon":"icon-sys","menuname":"控件使用",
+            {"menuid":"1","icon":"icon-sys","menuname":"订单管理",
                 "menus":[
-                    {"menuid":"12","menuname":"疯狂秀才","icon":"icon-add","url":"http://hxling.cnblogs.com"},
+                    {"menuid":"12","menuname":"订单管理","icon":"icon-add","url":"${ctx}/order/query"},
                     {"menuid":"13","menuname":"用户管理","icon":"icon-users","url":"a.html"},
                     {"menuid":"14","menuname":"角色管理","icon":"icon-role","url":"http://www.baidu.com"},
                     {"menuid":"15","menuname":"权限设置","icon":"icon-set","url":"demo.html"},
@@ -211,7 +212,7 @@
 <div region="north" split="true" border="false" style="overflow: hidden; height: 30px;background: url(${ctx}/static/easyui/images/layout-browser-hd-bg.gif) #7f99be repeat-x center 50%;
         line-height: 20px;color: #fff; font-family: Verdana, 微软雅黑,黑体">
     <span style="float:right; padding-right:20px;" class="head">欢迎 XXXX <a href="#" id="editpass">修改密码</a> <a href="#" id="loginOut">安全退出</a></span>
-    <span style="padding-left:10px; font-size: 16px; "><img src="images/blocks.gif" width="20" height="20" align="absmiddle" /> jQuery.EasyUI- 1.2.2 应用实例</span>
+    <span style="padding-left:10px; font-size: 16px; "><img src="${ctx}/static/easyui/images/blocks.gif" width="20" height="20" align="absmiddle" /> 婚庆管理平台</span>
 </div>
 <div region="south" split="true" style="height: 30px; background: #D2E0F2; ">
     <div class="footer">By 疯狂秀才(QQ:1055818239) jQuery.Easy-UI QQ讨论群： 112044258、32994605、36534121、56271061</div>

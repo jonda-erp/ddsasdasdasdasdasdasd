@@ -4,131 +4,228 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
-<form id="pagerForm" method="post" action="${ctx}/order/query">
-    <input type="hidden" name="pageNo" value="${page.pageNo}" />
-    <input type="hidden" name="pageSize" value="${page.pageSize}" />
-    <input type="hidden" name="orderField" value="${param.orderField}" />
-    <input type="hidden" name="orderDirection" value="${param.orderDirection}" />
-</form>
-<div class="pageHeader">
-    <form rel="pagerForm" onsubmit="return navTabSearch(this);" action="${ctx}/order/query" method="post">
-        <div class="searchBar">
-            <table class="searchContent">
-                <tr>
-                    <td>
-                        姓名：<input type="text" name="brideName" value="${param.brideName}"/>
-                    </td>
-                    <td>
-                        电话：<input type="text" name="brideTelephone" value="${param.brideTelephone}"/>
-                    </td>
-                    <td>
-                        订单状态：
-                        <select class="combox" name="status">
-                            <option value="">全部</option>
-                            <c:forEach var="item" items="${orderStatusEnum}">
-                                <c:choose>
-                                    <c:when test="${item.code == param.status}">
-                                        <option value="${item.code}" selected="selected">${item.message}</option>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <option value="${item.code}">${item.message}</option>
-                                    </c:otherwise>
-                                </c:choose>
-                            </c:forEach>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="3">
-                        婚庆日期：
-                        <div>
-                            <input name="ssDate" class="date" value="${ssDate}" readonly="readonly" class="required" type="text">
-                            <a href="javascript:void(0)" class="inputDateButton">选择</a>
-                            -
-                            <input name="seDate" class="date" value="${seDate}" readonly="readonly" class="required" type="text">
-                            <a href="javascript:void(0)" class="inputDateButton">选择</a>
-                        </div>
-                    </td>
-                </tr>
-            </table>
-            <div class="subBar">
-                <ul>
-                    <li><div class="buttonActive"><div class="buttonContent"><button type="submit">查询</button></div></div></li>
-                </ul>
-            </div>
-        </div>
-    </form>
-</div>
+<script type="text/javascript">
+    var url; //提交数据的路径
+    var formId; //当天要提交的Form的编号
+    var dialogId; //对话框的编号
 
-<div class="pageContent">
-    <div class="panelBar">
-        <ul class="toolBar">
-            <li><a class="add" href="${ctx}/order/add" target="dialog" width="980" height="578" rel="order_add_dialog"><span>创建订单</span></a></li>
-            <li><a class="edit" href="${ctx}/rbac/user/modify?id={sid_user}" target="dialog" width="480" rel="order_modify_dialog" warn="请选择一条记录"><span>修改订单</span></a></li>
-            <li><a class="edit" href="${ctx}/rbac/user/modify?id={sid_user}" target="dialog" width="480" rel="order_modify_dialog" warn="请选择一条记录"><span>查看详情</span></a></li>
-            <li class="line">line</li>
-            <li><a class="edit" href="${ctx}/rbac/user/distributeDialog?userId={sid_user}" target="dialog" targetType="order_distribute_dialog" warn="请选择一条记录"><span>修改合同</span></a></li>
-            <li><a class="edit" href="${ctx}/rbac/user/distributeDialog?userId={sid_user}" target="dialog" targetType="order_distribute_dialog" warn="请选择一条记录"><span>发票管理</span></a></li>
-            <li class="line">line</li>
-            <li><a class="edit" href="${ctx}/rbac/user/distributeDialog?userId={sid_user}" target="dialog" targetType="order_distribute_dialog" warn="请选择一条记录"><span>管理人员需求</span></a></li>
-            <li><a class="edit" href="${ctx}/rbac/user/distributeDialog?userId={sid_user}" target="dialog" targetType="order_distribute_dialog" warn="请选择一条记录"><span>管理道具需求</span></a></li>
-        </ul>
-    </div>
+    var successCallback = function (result) {
+        //result为请求处理后的返回值
+        var result = eval('(' + result + ')');
+        if (result.success) {
+            $.messager.show({
+                title: 'Success',
+                msg: result.msg
+            });
+            $(dialogId).dialog('close');
+            $('#dg').datagrid('reload');
+        } else {
+            $.messager.show({
+                title: 'Error',
+                msg: result.msg
+            });
+        }
+    }
 
-    <div id="w_list_print">
-        <table class="list" width="98%" targetType="navTab" asc="asc" desc="desc" layoutH="116">
-            <thead>
-            <tr>
-                <th width="140" orderField="brideName" class="asc">订单号</th>
-                <th width="140" orderField="brideName">合同号</th>
-                <th width="80" orderField="brideName" class="asc">新娘姓名</th>
-                <th width="100" orderField="brideTelephone" class="desc">新娘电话</th>
-                <th width="80" orderField="bridegroomName" >新郎姓名</th>
-                <th width="100" orderField="bridegroomName" >新郎电话</th>
-                <th width="100" orderField="bridegroomName" >婚庆日期</th>
-                <th width="60">订单状态</th>
-                <th>备注</th>
-            </tr>
-            </thead>
-            <tbody>
-            <c:forEach var="item" items="${page.data}">
-                <tr target="sid_user" rel="${item.orderId}">
-                    <td>${item.orderId}</td>
-                    <td>${item.contractId}</td>
-                    <td>${item.brideName}</td>
-                    <td>${item.brideTelephone}</td>
-                    <td>${item.bridegroomName}</td>
-                    <td>${item.bridegroomTelephone}</td>
-                    <td><fmt:formatDate value="${item.weddingDate}" pattern="yyyy-MM-dd"/></td>
-                    <td>${item.status}</td>
-                    <td>
-                        <c:choose>
-                            <c:when test="${item.remark != null and item.remark.length() > 15}">
-                                ${fn:substring(item.remark, 0, 15)}...
-                            </c:when>
-                            <c:otherwise>
-                                ${item.remark}
-                            </c:otherwise>
-                        </c:choose>
-                    </td>
-                </tr>
-            </c:forEach>
-            </tbody>
-        </table>
-    </div>
+    $(function () {
+//        //预加载编辑框
+//        $("#editDepartmentInfo").dialog({
+//            "title": "编辑科室信息",
+//            width: 500,
+//            height: 450,
+//            href: 'EditDepartment.aspx'
+//        });
+//        $("#editDepartmentInfo").dialog('open').dialog('close');
+//
+//        $('#dg').datagrid({
+//
+//            onDblClickRow: function (rowIndex, rowData) {
+//                $('#editDepartmentInfo').dialog('open');
+//                $("#textDepartmentName").val(rowData.Name);
+//                $("#textDepartmentDes").val(rowData.Introduce);
+//                $("#hoistal").combobox('setValue', rowData.HosptialID);
+//
+//                //      $('#edit').form('clear');
+//                url = 'ashx/DepartmentsManagerService.ashx?action=edit&id=' + rowData.ID;
+//                formId = "#edit";
+//                dialogId = "#editDepartmentInfo";
+//            }
+//        });
 
-    <div class="panelBar" >
-        <div class="pages">
-            <span>显示</span>
-            <select name="numPerPage" onchange="navTabPageBreak({pageSize:${page.pageSize}})">
-                <option value="20">20</option>
-                <option value="50">50</option>
-                <option value="100">100</option>
-                <option value="200">200</option>
+    });
+    //编辑科室部分
+    function editDepartmentInfo() {
+        var row = $('#dg').datagrid('getSelected');
+        if (row) {
+            $('#editDepartmentInfo').dialog('open');
+            $("#textDepartmentName").val(row.Name);
+            $("#textDepartmentDes").val(row.Introduce);
+            $("#hoistal").combobox('setValue', row.HosptialID);
+            //   $('#edit').form('clear');
+
+            url = 'ashx/DepartmentsManagerService.ashx?action=edit&id=' + row.ID;
+            formId = "#edit";
+            dialogId = "#editDepartmentInfo";
+
+        }
+        else {
+            $.messager.alert("提示", "您没有选中任何行！");
+        }
+    }
+
+    //添加科室部分
+    function addDepartmentInfo() {
+        $("#addDepartmentInfo").dialog({
+            "title": "新建科室信息",
+            width: 500,
+            height: 450,
+            href: 'AddDepartment.aspx'
+        });
+        $('#addDepartmentInfo').dialog('open');
+        $('#add').form('clear');
+
+        url = 'ashx/DepartmentsManagerService.ashx?action=add';
+        formId = "#add";
+        dialogId = "#addDepartmentInfo";
+    }
+    function saveInfo() {
+
+        $(formId).form('submit', {
+            url: url,
+            onSubmit: function () {
+                alert(formId);
+                return $(this).form('validate');
+            },
+            success: successCallback
+        });
+    }
+
+    //  删除代码部分
+    function deleteAdminUser() {
+        var row = $('#dg').datagrid('getSelected');
+        if (row) {
+            $.messager.confirm('删除提示', '确定要删除' + row.Name + '吗', function (r) {
+                if (r) {
+                    $.post('ashx/DepartmentsManagerService.ashx', { id: row.ID, action: 'delete' }, function (data, status) {
+
+                        if (data == "ok") {
+                            $('#dg').datagrid('reload');
+                        } else {
+                            $.messager.show({
+                                title: 'Error',
+                                msg: '删除该科室失败!'
+                            });
+                        }
+                    });
+                }
+            });
+        }
+    }
+
+    //多条件查询方法
+    function tsearch() {
+        var hoistalName = $("#hoistalName").combobox("getValue");
+        var depName = $("#depName").val();
+        alert(depName);
+        $('#dg').datagrid('options').pageNumber = 1;
+        $('#dg').datagrid('getPager').pagination({pageNumber: 1});
+        $('#dg').datagrid('options').url = 'ashx/DepartmentsManagerService.ashx?action=search&hospName='+hoistalName+'&depName='+depName;
+        $('#dg').datagrid("reload");
+    }
+
+</script>
+
+<div region="center" title="科室信息管理" >
+    <div class="easyui-panel" title="查询条件">
+        <div class="searchitem">
+            <label>医院名：</label>
+            <select id="hoistalName" name="selectHosptial">
+                <option value=""></option>
+                <option value="1">测试医院1</option>
             </select>
-            <span>条，共${page.totalCount}条</span>
         </div>
-        <div class="pagination" targetType="navTab" totalCount="${page.totalCount}" numPerPage="${page.pageSize}" pageNumShown="10" currentPage="${page.pageNo}"/>
+        <div class="searchitem">
+            <label>科室名：</label>
+            <input type="text" id="depName" class="easyui-validatebox" />
+        </div>
+        <div class="searchitem">
+            <label>科室名：</label>
+            <input type="text" id="depName1" class="easyui-validatebox" />
+        </div>
+        <div class="searchitem" style="width:350px;">
+            <label>婚庆日期：</label>
+            <input type="text" id="depName2" class="easyui-validatebox" style="width:80px;"/> 至
+            <input type="text" id="depName3" class="easyui-validatebox" style="width:80px;"/>
+        </div>
+        <div class="searchitem">
+            <label>科室名：</label>
+            <input type="text" id="depName4" class="easyui-validatebox" />
+        </div>
+        <div class="searchitem">
+            <a href="#" class="easyui-linkbutton" onclick="tsearch()" >查询</a>
+        </div>
     </div>
 
+    <table id="dg2" title="科室信息管理" class="easyui-datagrid"
+           toolbar="#toolbar" pagination="true"
+           rownumbers="true" fitColumns="true" singleSelect="true"   idField='ID'
+           pageSize="20" data-options="pageNumber:${page.pageNo},pageSize:${page.pageSize},">
+        <thead>
+            <tr>
+                <th field="Name" width="10">订单号</th>
+                <th field="Name" width="10">合同号</th>
+                <th field="Name" width="10">新娘姓名</th>
+                <th field="Name" width="10">新娘电话</th>
+                <th field="Name" width="10">新郎姓名</th>
+                <th field="Name" width="10">新郎电话</th>
+                <th field="Name" width="10">婚庆日期</th>
+                <th field="Name" width="10">订单状态</th>
+                <th field="Name" width="10">备注</th>
+            </tr>
+        </thead>
+        <tbody>
+            <c:forEach var="item" items="${page.data}">
+            <tr>
+                <td>${item.orderId}</td>
+                <td>${item.contractId}</td>
+                <td>${item.brideName}</td>
+                <td>${item.brideTelephone}</td>
+                <td>${item.bridegroomName}</td>
+                <td>${item.bridegroomTelephone}</td>
+                <td><fmt:formatDate value="${item.weddingDate}" pattern="yyyy-MM-dd"/></td>
+                <td>${item.status}</td>
+                <td>
+                    <c:choose>
+                        <c:when test="${item.remark != null and item.remark.length() > 15}">
+                            ${fn:substring(item.remark, 0, 15)}...
+                        </c:when>
+                        <c:otherwise>
+                            ${item.remark}
+                        </c:otherwise>
+                    </c:choose>
+                </td>
+            </tr>
+            </c:forEach>
+        </tbody>
+    </table>
+
+    <div id="toolbar" style="padding:5px;height:auto">
+        <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="addDepartmentInfo()">添加科室</a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editDepartmentInfo()">编辑科室</a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteAdminUser()">删除科室</a>
+    </div>
+
+
+    <div id="addDepartmentInfo" class="easyui-dialog" closed="true" buttons="#addDepartmentInfo-buttons" style="padding:10px 20px"></div>
+    <div id="addDepartmentInfo-buttons">
+        <a href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveInfo()">保存</a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#addDepartmentInfo').dialog('close')">关闭</a>
+    </div>
+
+    <div id="editDepartmentInfo" class="easyui-dialog" closed="true" buttons="#editDepartmentInfo-buttons" style="padding:10px 20px">
+    </div>
+    <div id="editDepartmentInfo-buttons">
+        <a href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveInfo()">保存</a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#editDepartmentInfo').dialog('close')">关闭</a>
+    </div>
 </div>
