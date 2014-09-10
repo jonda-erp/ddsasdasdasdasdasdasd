@@ -7,148 +7,267 @@
 
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
 
-<head>
+<head id="Head1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>婚庆企业管理平台</title>
 
-    <link href="${ctx}/static/dwz/themes/default/style.css" rel="stylesheet" type="text/css" media="screen"/>
-    <link href="${ctx}/static/dwz/themes/css/core.css" rel="stylesheet" type="text/css" media="screen"/>
-    <link href="${ctx}/static/dwz/themes/css/print.css" rel="stylesheet" type="text/css" media="print"/>
-    <link href="${ctx}/static/uploadify/css/uploadify.css" rel="stylesheet" type="text/css" media="screen"/>
-    <!--[if IE]>
-    <link href="${ctx}/static/dwz/themes/css/ieHack.css" rel="stylesheet" type="text/css" media="screen"/>
-    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="${ctx}/static/easyui/css/default.css"/>
+    <link rel="stylesheet" type="text/css" href="${ctx}/static/easyui/themes/default/easyui.css" />
+    <link rel="stylesheet" type="text/css" href="${ctx}/static/easyui/themes/icon.css" />
+    <script type="text/javascript" src="${ctx}/static/easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="${ctx}/static/easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src='${ctx}/static/easyui/outlook2.js'> </script>
+    <style type="text/css">
+        body
+        {
+            font-size:12px;
+        }
 
-    <!--[if lte IE 9]>
-    <script src="${ctx}/static/dwz/js/speedup.js" type="text/javascript"></script>
-    <![endif]-->
+        .ftitle
+        {
+            font-size:14px;
+            font-weight:bold;
+            color:#666;
+            padding:5px 0;
+            margin-bottom:20px;
+            border-bottom:1px solid #ccc;
+        }
 
-    <script src="${ctx}/static/dwz/js/jquery-1.7.2.js" type="text/javascript"></script>
-    <script src="${ctx}/static/dwz/js/jquery.cookie.js" type="text/javascript"></script>
-    <script src="${ctx}/static/dwz/js/jquery.validate.js" type="text/javascript"></script>
-    <script src="${ctx}/static/dwz/js/jquery.bgiframe.js" type="text/javascript"></script>
-    <script src="${ctx}/static/xheditor/xheditor-1.2.1.min.js" type="text/javascript"></script>
-    <script src="${ctx}/static/xheditor/xheditor_lang/zh-cn.js" type="text/javascript"></script>
-    <script src="${ctx}/static/uploadify/scripts/jquery.uploadify.js" type="text/javascript"></script>
+        .fitem
+        {
+            margin-bottom:15px;
+        }
 
-    <!-- svg图表  supports Firefox 3.0+, Safari 3.0+, Chrome 5.0+, Opera 9.5+ and Internet Explorer 6.0+ -->
-    <script type="text/javascript" src="${ctx}/static/chart/raphael.js"></script>
-    <script type="text/javascript" src="${ctx}/static/chart/g.raphael.js"></script>
-    <script type="text/javascript" src="${ctx}/static/chart/g.bar.js"></script>
-    <script type="text/javascript" src="${ctx}/static/chart/g.line.js"></script>
-    <script type="text/javascript" src="${ctx}/static/chart/g.pie.js"></script>
-    <script type="text/javascript" src="${ctx}/static/chart/g.dot.js"></script>
+        .fitem label
+        {
+            display:inline-block;
+            width:90px;
+            text-align:right;
+            vertical-align:top;
+            margin-top:2px;
+        }
+        .fitem input
+        {
+            width:150px;
+            height:auto;
+        }
+        .fitem select
+        {
+            width:150px;
+            height:auto;
+        }
+        .fitem  textarea
+        {
+            width:300px;
+            height:200px;
+        }
 
-    <!-- 可以用dwz.min.js替换前面全部dwz.*.js (注意：替换是下面dwz.regional.zh.js还需要引入)-->
-    <script src="${ctx}/static/dwz/js/dwz.min.js" type="text/javascript"></script>
-    <script src="${ctx}/static/dwz/js/dwz.regional.zh.js" type="text/javascript"></script>
+        .searchitem
+        {
+            float:left;
+            margin-left:30px;
+            vertical-align:middle;
+            width:220px;
+            height:auto;
+            margin-top:15px;
+        }
 
-    <script type="text/javascript" src="${ctx}/static/treeTable/jquery.treetable.js"></script>
+        . searchitem  select
+        {
+            width:150px;
+            height:auto;
+        }
 
+        .searchitem input
+        {
+            width:150px;
+            height:auto;
+        }
+
+        .error
+        {
+            color:Red;
+            font-size:10px;
+            margin-left:5px;
+        }
+
+    </style>
     <script type="text/javascript">
-        $(function(){
-            DWZ.init("${ctx}/static/dwz/dwz.frag.xml", {
-                loginUrl:"login_dialog.html", loginTitle:"登录",	// 弹出登录对话框
-//		loginUrl:"login.jsp",	// 跳到登录页面
-                statusCode:{ok:200, error:300, timeout:301}, //【可选】
-                pageInfo:{pageNum:"pageNo", numPerPage:"pageSize", orderField:"orderField", orderDirection:"orderDirection"}, //【可选】
-                keys: {statusCode:"statusCode", message:"message"}, //【可选】
-                ui:{hideMode:'offsets'}, //【可选】hideMode:navTab组件切换的隐藏方式，支持的值有’display’，’offsets’负数偏移位置的值，默认值为’display’
-                debug:false,	// 调试模式 【true|false】
-                callback:function(){
-                    initEnv();
-                    $("#themeList").theme({themeBase:"${ctx}/static/dwz/themes"}); // themeBase 相对于index页面的主题base路径
-                }
+        var _menus = {"menus":[
+            {"menuid":"1","icon":"icon-sys","menuname":"控件使用",
+                "menus":[
+                    {"menuid":"12","menuname":"疯狂秀才","icon":"icon-add","url":"http://hxling.cnblogs.com"},
+                    {"menuid":"13","menuname":"用户管理","icon":"icon-users","url":"a.html"},
+                    {"menuid":"14","menuname":"角色管理","icon":"icon-role","url":"http://www.baidu.com"},
+                    {"menuid":"15","menuname":"权限设置","icon":"icon-set","url":"demo.html"},
+                    {"menuid":"16","menuname":"系统日志","icon":"icon-log","url":"demo1.html"}
+                ]
+            },
+            {"menuid":"8","icon":"icon-sys","menuname":"员工管理",
+                "menus":[{"menuid":"21","menuname":"员工列表","icon":"icon-nav","url":"demo.html"},
+                    {"menuid":"22","menuname":"视频监控","icon":"icon-nav","url":"demo1.html"}
+                ]
+            },
+            {"menuid":"56","icon":"icon-sys","menuname":"部门管理",
+                "menus":[{"menuid":"31","menuname":"添加部门","icon":"icon-nav","url":"demo1.html"},
+                    {"menuid":"32","menuname":"部门列表","icon":"icon-nav","url":"demo2.html"}
+                ]
+            },
+            {"menuid":"28","icon":"icon-sys","menuname":"财务管理",
+                "menus":[{"menuid":"41","menuname":"收支分类","icon":"icon-nav","url":"demo.html"},
+                    {"menuid":"42","menuname":"报表统计","icon":"icon-nav","url":"demo1.html"},
+                    {"menuid":"43","menuname":"添加支出","icon":"icon-nav","url":"demo2.html"}
+                ]
+            },
+            {"menuid":"39","icon":"icon-sys","menuname":"商城管理",
+                "menus":[{"menuid":"51","menuname":"商品分类","icon":"icon-nav","url":"demo.html"},
+                    {"menuid":"52","menuname":"商品列表","icon":"icon-nav","url":"demo1.html"},
+                    {"menuid":"53","menuname":"商品订单","icon":"icon-nav","url":"demo2.html"}
+                ]
+            }
+        ]};
+        //设置登录窗口
+        function openPwd() {
+            $('#w').window({
+                title: '修改密码',
+                width: 300,
+                modal: true,
+                shadow: true,
+                closed: true,
+                height: 160,
+                resizable:false
+            });
+        }
+        //关闭登录窗口
+        function closePwd() {
+            $('#w').window('close');
+        }
+
+
+
+        //修改密码
+        function serverLogin() {
+            var $newpass = $('#txtNewPass');
+            var $rePass = $('#txtRePass');
+
+            if ($newpass.val() == '') {
+                msgShow('系统提示', '请输入密码！', 'warning');
+                return false;
+            }
+            if ($rePass.val() == '') {
+                msgShow('系统提示', '请在一次输入密码！', 'warning');
+                return false;
+            }
+
+            if ($newpass.val() != $rePass.val()) {
+                msgShow('系统提示', '两次密码不一至！请重新输入', 'warning');
+                return false;
+            }
+
+            $.post('/ajax/editpassword.ashx?newpass=' + $newpass.val(), function(msg) {
+                msgShow('系统提示', '恭喜，密码修改成功！<br>您的新密码为：' + msg, 'info');
+                $newpass.val('');
+                $rePass.val('');
+                close();
+            })
+
+        }
+
+        $(function() {
+
+            openPwd();
+
+            $('#editpass').click(function() {
+                $('#w').window('open');
             });
 
-            // 设置当前系统时间
-            setCurrentTime();
+            $('#btnEp').click(function() {
+                serverLogin();
+            })
+
+            $('#btnCancel').click(function(){closePwd();})
+
+            $('#loginOut').click(function() {
+                $.messager.confirm('系统提示', '您确定要退出本次登录吗?', function(r) {
+
+                    if (r) {
+                        location.href = '/ajax/loginout.ashx';
+                    }
+                });
+            })
         });
-        var t = new Date("${currentTime}");
-        function setCurrentTime(){
-            t = t.getTime() + 1000;
-            t =new Date(t);
-            document.getElementById("currentTime").innerHTML = "当前系统时间:" + t.formatDate("yyyy-MM-dd HH:mm:ss");
-            // 1秒执行一次
-            window.setTimeout(setCurrentTime, 1000);
-        }
+
+
+
     </script>
+
 </head>
-
-<body scroll="no">
-<div id="layout">
-<div id="header">
-    <div class="headerNav">
-        <a class="logo" href="${ctx}/">标志</a>
-        <ul class="nav">
-            <li><a href="${ctx}/">首页</a></li>
-            <li><a href="${ctx}/rbac/logout">退出</a></li>
-        </ul>
-        <ul class="themeList" id="themeList">
-            <li theme="default"><div class="selected">蓝色</div></li>
-            <li theme="green"><div>绿色</div></li>
-            <!--<li theme="red"><div>红色</div></li>-->
-            <li theme="purple"><div>紫色</div></li>
-            <li theme="silver"><div>银色</div></li>
-            <li theme="azure"><div>天蓝</div></li>
-        </ul>
+<body class="easyui-layout" style="overflow-y: hidden"  scroll="no">
+<noscript>
+    <div style=" position:absolute; z-index:100000; height:2046px;top:0px;left:0px; width:100%; background:white; text-align:center;">
+        <img src="images/noscript.gif" alt='抱歉，请开启脚本支持！' />
     </div>
-
-    <!-- navMenu -->
-
+</noscript>
+<div region="north" split="true" border="false" style="overflow: hidden; height: 30px;background: url(${ctx}/static/easyui/images/layout-browser-hd-bg.gif) #7f99be repeat-x center 50%;
+        line-height: 20px;color: #fff; font-family: Verdana, 微软雅黑,黑体">
+    <span style="float:right; padding-right:20px;" class="head">欢迎 XXXX <a href="#" id="editpass">修改密码</a> <a href="#" id="loginOut">安全退出</a></span>
+    <span style="padding-left:10px; font-size: 16px; "><img src="images/blocks.gif" width="20" height="20" align="absmiddle" /> jQuery.EasyUI- 1.2.2 应用实例</span>
+</div>
+<div region="south" split="true" style="height: 30px; background: #D2E0F2; ">
+    <div class="footer">By 疯狂秀才(QQ:1055818239) jQuery.Easy-UI QQ讨论群： 112044258、32994605、36534121、56271061</div>
 </div>
 
-<div id="leftside">
-    <div id="sidebar_s">
-        <div class="collapse">
-            <div class="toggleCollapse"><div></div></div>
-        </div>
-    </div>
-    <div id="sidebar">
-        <div class="toggleCollapse"><h2>主菜单</h2><div>收缩</div></div>
-
-        <div class="accordion" fillSpace="sidebar">
-            <jsp:include page="common/menus.jsp"/>
-        </div>
+<div region="west" hide="true" split="true" title="导航菜单" style="width:180px;" id="west">
+    <div id="nav" class="easyui-accordion" fit="true" border="false">
+        <!--  导航内容 -->
     </div>
 </div>
-<div id="container">
-    <div id="navTab" class="tabsPage">
-        <div class="tabsPageHeader">
-            <div class="tabsPageHeaderContent"><!-- 显示左右控制时添加 class="tabsPageHeaderMargin" -->
-                <ul class="navTab-tab">
-                    <li tabid="main" class="main"><a href="javascript:;"><span><span class="home_icon">首页</span></span></a></li>
-                </ul>
-            </div>
-            <div class="tabsLeft">left</div><!-- 禁用只需要添加一个样式 class="tabsLeft tabsLeftDisabled" -->
-            <div class="tabsRight">right</div><!-- 禁用只需要添加一个样式 class="tabsRight tabsRightDisabled" -->
-            <div class="tabsMore">more</div>
-        </div>
-        <ul class="tabsMoreList">
-            <li><a href="javascript:;">首页</a></li>
-        </ul>
-        <div class="navTab-panel tabsPageContent layoutBox">
-            <div class="page unitBox">
-                <div class="accountInfo">
-                    <p><span>下午好!<shiro:principal/></span></p>
-                    <p id="currentTime"></p>
-                </div>
-                <div class="pageFormContent" layoutH="80" style="margin-right:230px">
 
-                </div>
-
-                <%--<div style="width:230px;position: absolute;top:60px;right:0" layoutH="80">--%>
-                    <%--<iframe width="100%" height="430" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?width=0&height=430&fansRow=2&ptype=1&skin=1&isTitle=0&noborder=1&isWeibo=1&isFans=0&uid=1739071261&verifier=c683dfe7"></iframe>--%>
-                <%--</div>--%>
-            </div>
-
+<div id="mainPanle" region="center" style="background: #eee; overflow-y:hidden">
+    <div id="tabs" class="easyui-tabs"  fit="true" border="false" >
+        <div title="欢迎使用" style="padding:20px;overflow:hidden; color:red; " >
+            <h1 style="font-size:24px;">欢迎使用婚庆管理平台</h1>
         </div>
     </div>
 </div>
 
+
+<!--修改密码窗口-->
+<div id="w" class="easyui-window" title="修改密码" collapsible="false" minimizable="false"
+     maximizable="false" icon="icon-save"  style="width: 300px; height: 150px; padding: 5px;
+        background: #fafafa;">
+    <div class="easyui-layout" fit="true">
+        <div region="center" border="false" style="padding: 10px; background: #fff; border: 1px solid #ccc;">
+            <table cellpadding=3>
+                <tr>
+                    <td>新密码：</td>
+                    <td><input id="txtNewPass" type="Password" class="txt01" /></td>
+                </tr>
+                <tr>
+                    <td>确认密码：</td>
+                    <td><input id="txtRePass" type="Password" class="txt01" /></td>
+                </tr>
+            </table>
+        </div>
+        <div region="south" border="false" style="text-align: right; height: 30px; line-height: 30px;">
+            <a id="btnEp" class="easyui-linkbutton" icon="icon-ok" href="javascript:void(0)" >
+                确定</a> <a id="btnCancel" class="easyui-linkbutton" icon="icon-cancel" href="javascript:void(0)">取消</a>
+        </div>
+    </div>
 </div>
 
-<div id="footer">Copyright &copy; 2010 <a href="demo_page2.html" target="dialog">DWZ团队</a> 京ICP备05019125号-10</div>
+<div id="mm" class="easyui-menu" style="width:150px;">
+    <div id="mm-tabupdate">刷新</div>
+    <div class="menu-sep"></div>
+    <div id="mm-tabclose">关闭</div>
+    <div id="mm-tabcloseall">全部关闭</div>
+    <div id="mm-tabcloseother">除此之外全部关闭</div>
+    <div class="menu-sep"></div>
+    <div id="mm-tabcloseright">当前页右侧全部关闭</div>
+    <div id="mm-tabcloseleft">当前页左侧全部关闭</div>
+    <div class="menu-sep"></div>
+    <div id="mm-exit">退出</div>
+</div>
 
 
 </body>
