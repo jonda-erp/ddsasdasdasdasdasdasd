@@ -66,11 +66,11 @@
         .searchitem
         {
             float:left;
-            margin-left:30px;
+            margin-left:10px;
             vertical-align:middle;
-            width:220px;
             height:auto;
-            margin-top:15px;
+            margin-top:6px;
+            margin-bottom:6px;
         }
 
         . searchitem  select
@@ -81,7 +81,7 @@
 
         .searchitem input
         {
-            width:150px;
+            width:100px;
             height:auto;
         }
 

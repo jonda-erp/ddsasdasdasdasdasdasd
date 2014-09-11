@@ -3,29 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-
+<script type="text/javascript" src="${ctx}/static/easyui/application/order.js"></script>
 <script type="text/javascript">
-    var url; //提交数据的路径
-    var formId; //当天要提交的Form的编号
-    var dialogId; //对话框的编号
-
-    var successCallback = function (result) {
-        //result为请求处理后的返回值
-        var result = eval('(' + result + ')');
-        if (result.success) {
-            $.messager.show({
-                title: 'Success',
-                msg: result.msg
-            });
-            $(dialogId).dialog('close');
-            $('#dg').datagrid('reload');
-        } else {
-            $.messager.show({
-                title: 'Error',
-                msg: result.msg
-            });
-        }
-    }
 
     $(function () {
 //        //预加载编辑框
@@ -53,85 +32,7 @@
 //        });
 
     });
-    //编辑科室部分
-    function editDepartmentInfo() {
-        var row = $('#dg').datagrid('getSelected');
-        if (row) {
-            $('#editDepartmentInfo').dialog('open');
-            $("#textDepartmentName").val(row.Name);
-            $("#textDepartmentDes").val(row.Introduce);
-            $("#hoistal").combobox('setValue', row.HosptialID);
-            //   $('#edit').form('clear');
 
-            url = 'ashx/DepartmentsManagerService.ashx?action=edit&id=' + row.ID;
-            formId = "#edit";
-            dialogId = "#editDepartmentInfo";
-
-        }
-        else {
-            $.messager.alert("提示", "您没有选中任何行！");
-        }
-    }
-
-    //添加科室部分
-    function addDepartmentInfo() {
-        $("#addDepartmentInfo").dialog({
-            "title": "新建科室信息",
-            width: 500,
-            height: 450,
-            href: 'AddDepartment.aspx'
-        });
-        $('#addDepartmentInfo').dialog('open');
-        $('#add').form('clear');
-
-        url = 'ashx/DepartmentsManagerService.ashx?action=add';
-        formId = "#add";
-        dialogId = "#addDepartmentInfo";
-    }
-    function saveInfo() {
-
-        $(formId).form('submit', {
-            url: url,
-            onSubmit: function () {
-                alert(formId);
-                return $(this).form('validate');
-            },
-            success: successCallback
-        });
-    }
-
-    //  删除代码部分
-    function deleteAdminUser() {
-        var row = $('#dg').datagrid('getSelected');
-        if (row) {
-            $.messager.confirm('删除提示', '确定要删除' + row.Name + '吗', function (r) {
-                if (r) {
-                    $.post('ashx/DepartmentsManagerService.ashx', { id: row.ID, action: 'delete' }, function (data, status) {
-
-                        if (data == "ok") {
-                            $('#dg').datagrid('reload');
-                        } else {
-                            $.messager.show({
-                                title: 'Error',
-                                msg: '删除该科室失败!'
-                            });
-                        }
-                    });
-                }
-            });
-        }
-    }
-
-    //多条件查询方法
-    function tsearch() {
-        var hoistalName = $("#hoistalName").combobox("getValue");
-        var depName = $("#depName").val();
-        alert(depName);
-        $('#dg').datagrid('options').pageNumber = 1;
-        $('#dg').datagrid('getPager').pagination({pageNumber: 1});
-        $('#dg').datagrid('options').url = 'ashx/DepartmentsManagerService.ashx?action=search&hospName='+hoistalName+'&depName='+depName;
-        $('#dg').datagrid("reload");
-    }
 
 </script>
 
@@ -145,10 +46,10 @@
             <label>电话：</label>
             <input type="text" id="telephone" class="easyui-validatebox" />
         </div>
-        <div class="searchitem" style="width:350px;">
+        <div class="searchitem">
             <label>婚庆日期：</label>
-            <input type="text" id="ssDate" class="easyui-validatebox" style="width:80px;"/> 至
-            <input type="text" id="seDate" class="easyui-validatebox" style="width:80px;"/>
+            <input type="text" id="ssDate" class="easyui-datebox" style="width:100px;"/> 至
+            <input type="text" id="seDate" class="easyui-datebox" style="width:100px;"/>
         </div>
         <div class="searchitem">
             <label>订单状态：</label>
@@ -167,7 +68,7 @@
             </select>
         </div>
         <div class="searchitem">
-            <a href="#" class="easyui-linkbutton" onclick="tsearch()">查询</a>
+            <a href="javascript:FindData()" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>
         </div>
     </div>
     <table class="easyui-datagrid" title="客户订单管理"
@@ -189,7 +90,7 @@
     </table>
 
     <div id="toolbar" style="padding:5px;height:auto">
-        <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="addDepartmentInfo()">创建订单</a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="addDepartmentInfo('${ctx}/order/add')">创建订单</a>
         <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editDepartmentInfo()">修改订单</a>
         <a href="#" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="deleteAdminUser()">查看详情</a>
         <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="deleteAdminUser()">修改合同</a>
@@ -204,8 +105,7 @@
         <a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#addDepartmentInfo').dialog('close')">关闭</a>
     </div>
 
-    <div id="editDepartmentInfo" class="easyui-dialog" closed="true" buttons="#editDepartmentInfo-buttons" style="padding:10px 20px">
-    </div>
+    <div id="editDepartmentInfo" class="easyui-dialog" closed="true" buttons="#editDepartmentInfo-buttons" style="padding:10px 20px"></div>
     <div id="editDepartmentInfo-buttons">
         <a href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveInfo()">保存</a>
         <a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#editDepartmentInfo').dialog('close')">关闭</a>
