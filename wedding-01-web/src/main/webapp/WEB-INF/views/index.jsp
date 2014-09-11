@@ -203,7 +203,7 @@
     </script>
 
 </head>
-<body class="easyui-layout" style="overflow-y: hidden"  scroll="no">
+<body class="easyui-layout" style="overflow-y: hidden"  scroll="no" fit="true">
 <noscript>
     <div style=" position:absolute; z-index:100000; height:2046px;top:0px;left:0px; width:100%; background:white; text-align:center;">
         <img src="images/noscript.gif" alt='抱歉，请开启脚本支持！' />

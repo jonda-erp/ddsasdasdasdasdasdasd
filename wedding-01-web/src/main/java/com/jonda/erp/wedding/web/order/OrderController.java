@@ -3,6 +3,7 @@ package com.jonda.erp.wedding.web.order;
 import com.jonda.common.dto.Page;
 import com.jonda.common.spring.web.AjaxResult;
 import com.jonda.common.spring.web.BaseController;
+import com.jonda.common.spring.web.JsonResult;
 import com.jonda.erp.wedding.biz.manage.OrderManageBiz;
 import com.jonda.erp.wedding.biz.query.OrderQueryBiz;
 import com.jonda.erp.wedding.domain.wedding.order.Order;
@@ -41,8 +42,13 @@ public class OrderController extends BaseController {
 
     private static final Logger logger = LoggerFactory.getLogger(OrderController.class);
 
-    @RequestMapping("/query")
-    public String query(Model model, OrderQueryParam param, String ssDate, String seDate){
+    @RequestMapping(value = "/query", method = RequestMethod.GET)
+    public String query() {
+        return "wedding/order/index";
+    }
+
+    @RequestMapping(value = "/query", method = RequestMethod.POST)
+    public @ResponseBody String query(Model model, OrderQueryParam param, String ssDate, String seDate){
         param.setStartWeddingDate(OrderMVCUtil.string2Date(ssDate, "yyyy-MM-dd"));
         param.setEndWeddingDate(OrderMVCUtil.string2Date(seDate, "yyyy-MM-dd"));
         Page<OrderQueryResult> page = orderQueryBiz.queryOrder(param);
@@ -51,7 +57,7 @@ public class OrderController extends BaseController {
         model.addAttribute("ssDate", ssDate);
         model.addAttribute("seDate", seDate);
         model.addAttribute("orderStatusEnum", OrderStatusEnum.values());
-        return "wedding/order/index";
+        return JsonResult.getJsonResult(page);
     }
 
     @RequestMapping("/add")

@@ -135,86 +135,68 @@
 
 </script>
 
-<div region="center" title="科室信息管理" >
+<div region="center" fit="true">
     <div class="easyui-panel" title="查询条件">
         <div class="searchitem">
-            <label>医院名：</label>
-            <select id="hoistalName" name="selectHosptial">
-                <option value=""></option>
-                <option value="1">测试医院1</option>
-            </select>
+            <label>姓名：</label>
+            <input type="text" id="name" class="easyui-validatebox" />
         </div>
         <div class="searchitem">
-            <label>科室名：</label>
-            <input type="text" id="depName" class="easyui-validatebox" />
-        </div>
-        <div class="searchitem">
-            <label>科室名：</label>
-            <input type="text" id="depName1" class="easyui-validatebox" />
+            <label>电话：</label>
+            <input type="text" id="telephone" class="easyui-validatebox" />
         </div>
         <div class="searchitem" style="width:350px;">
             <label>婚庆日期：</label>
-            <input type="text" id="depName2" class="easyui-validatebox" style="width:80px;"/> 至
-            <input type="text" id="depName3" class="easyui-validatebox" style="width:80px;"/>
+            <input type="text" id="ssDate" class="easyui-validatebox" style="width:80px;"/> 至
+            <input type="text" id="seDate" class="easyui-validatebox" style="width:80px;"/>
         </div>
         <div class="searchitem">
-            <label>科室名：</label>
-            <input type="text" id="depName4" class="easyui-validatebox" />
-        </div>
-        <div class="searchitem">
-            <a href="#" class="easyui-linkbutton" onclick="tsearch()" >查询</a>
-        </div>
-    </div>
-
-    <table id="dg2" title="科室信息管理" class="easyui-datagrid"
-           toolbar="#toolbar" pagination="true"
-           rownumbers="true" fitColumns="true" singleSelect="true"   idField='ID'
-           pageSize="20" data-options="pageNumber:${page.pageNo},pageSize:${page.pageSize},">
-        <thead>
-            <tr>
-                <th field="Name" width="10">订单号</th>
-                <th field="Name" width="10">合同号</th>
-                <th field="Name" width="10">新娘姓名</th>
-                <th field="Name" width="10">新娘电话</th>
-                <th field="Name" width="10">新郎姓名</th>
-                <th field="Name" width="10">新郎电话</th>
-                <th field="Name" width="10">婚庆日期</th>
-                <th field="Name" width="10">订单状态</th>
-                <th field="Name" width="10">备注</th>
-            </tr>
-        </thead>
-        <tbody>
-            <c:forEach var="item" items="${page.data}">
-            <tr>
-                <td>${item.orderId}</td>
-                <td>${item.contractId}</td>
-                <td>${item.brideName}</td>
-                <td>${item.brideTelephone}</td>
-                <td>${item.bridegroomName}</td>
-                <td>${item.bridegroomTelephone}</td>
-                <td><fmt:formatDate value="${item.weddingDate}" pattern="yyyy-MM-dd"/></td>
-                <td>${item.status}</td>
-                <td>
+            <label>订单状态：</label>
+            <select class="combox" name="status">
+                <option value="">全部</option>
+                <c:forEach var="item" items="${orderStatusEnum}">
                     <c:choose>
-                        <c:when test="${item.remark != null and item.remark.length() > 15}">
-                            ${fn:substring(item.remark, 0, 15)}...
+                        <c:when test="${item.code == param.status}">
+                            <option value="${item.code}" selected="selected">${item.message}</option>
                         </c:when>
                         <c:otherwise>
-                            ${item.remark}
+                            <option value="${item.code}">${item.message}</option>
                         </c:otherwise>
                     </c:choose>
-                </td>
-            </tr>
-            </c:forEach>
-        </tbody>
+                </c:forEach>
+            </select>
+        </div>
+        <div class="searchitem">
+            <a href="#" class="easyui-linkbutton" onclick="tsearch()">查询</a>
+        </div>
+    </div>
+    <table class="easyui-datagrid" title="客户订单管理"
+           data-options="url:'${ctx}/order/query',fitColumns:true,singleSelect:true"
+           toolbar='#toolbar' pagination="true" idField="orderId">
+        <thead>
+        <tr>
+            <th data-options="field:'orderId',width:100">Code</th>
+            <th data-options="field:'contractId',width:100">Name</th>
+            <th data-options="field:'brideName',width:100">Price</th>
+            <th data-options="field:'brideTelephone',width:100">Price</th>
+            <th data-options="field:'bridegroomName',width:100">Price</th>
+            <th data-options="field:'bridegroomTelephone',width:100">Price</th>
+            <th data-options="field:'weddingDate',width:100">Price</th>
+            <th data-options="field:'status',width:100">Price</th>
+            <th data-options="field:'remark',width:100">Price</th>
+        </tr>
+        </thead>
     </table>
 
     <div id="toolbar" style="padding:5px;height:auto">
-        <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="addDepartmentInfo()">添加科室</a>
-        <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editDepartmentInfo()">编辑科室</a>
-        <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteAdminUser()">删除科室</a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="addDepartmentInfo()">创建订单</a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editDepartmentInfo()">修改订单</a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="deleteAdminUser()">查看详情</a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="deleteAdminUser()">修改合同</a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="deleteAdminUser()">发票管理</a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="deleteAdminUser()">管理人员需求</a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="deleteAdminUser()">管理道具需求</a>
     </div>
-
 
     <div id="addDepartmentInfo" class="easyui-dialog" closed="true" buttons="#addDepartmentInfo-buttons" style="padding:10px 20px"></div>
     <div id="addDepartmentInfo-buttons">
