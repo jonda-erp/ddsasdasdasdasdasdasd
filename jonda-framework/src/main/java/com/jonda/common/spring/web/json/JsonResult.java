@@ -1,9 +1,11 @@
-package com.jonda.common.spring.web;
+package com.jonda.common.spring.web.json;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.jonda.common.dto.Page;
-import org.springside.modules.mapper.JsonMapper;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,18 +20,18 @@ public class JsonResult<T extends Serializable> implements Serializable {
     private JsonResult(Page<T> page) {
         if (page == null) throw new RuntimeException("参数不正确，分页对象不能为空");
         this.total = page.getTotalCount();
-        this.rows = page.getData();
-    }
-
-    @Override
-    public String toString() {
-        JsonMapper jsonMapper = JsonMapper.nonEmptyMapper();
-        return jsonMapper.toJson(this);
+        if (page.getData() == null) {
+            this.rows = new ArrayList<T>();
+        } else {
+            this.rows = page.getData();
+        }
     }
 
     public static <T extends Serializable> String getJsonResult(Page<T> page) {
         JsonResult<T> jsonResult = new JsonResult<T>(page);
-        return jsonResult.toString();
+        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+        String json = gson.toJson(jsonResult, JsonResult.class);
+        return json;
     }
 
     public Integer getTotal() {

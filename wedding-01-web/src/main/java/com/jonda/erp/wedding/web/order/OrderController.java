@@ -3,7 +3,7 @@ package com.jonda.erp.wedding.web.order;
 import com.jonda.common.dto.Page;
 import com.jonda.common.spring.web.AjaxResult;
 import com.jonda.common.spring.web.BaseController;
-import com.jonda.common.spring.web.JsonResult;
+import com.jonda.common.spring.web.json.JsonResult;
 import com.jonda.erp.wedding.biz.manage.OrderManageBiz;
 import com.jonda.erp.wedding.biz.query.OrderQueryBiz;
 import com.jonda.erp.wedding.domain.wedding.order.Order;
@@ -12,7 +12,6 @@ import com.jonda.erp.wedding.dto.order.OrderQueryResult;
 import com.jonda.erp.wedding.enums.OrderStatusEnum;
 import com.jonda.erp.wedding.enums.ProductTypeEnum;
 import com.jonda.erp.wedding.enums.UserTypeEnum;
-import com.jonda.erp.wedding.web.order.checker.OrderParamChecker;
 import com.jonda.erp.wedding.web.order.util.OrderMVCUtil;
 import com.jonda.rbac.shiro.JondaRbacUtil;
 import org.slf4j.Logger;
@@ -25,7 +24,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.util.Map;
 
 /**
  * Created by rejoady on 2014/8/9.
@@ -42,21 +40,17 @@ public class OrderController extends BaseController {
 
     private static final Logger logger = LoggerFactory.getLogger(OrderController.class);
 
-    @RequestMapping(value = "/query", method = RequestMethod.GET)
-    public String query() {
+    @RequestMapping(value = "/index")
+    public String index(Model model) {
+        model.addAttribute("orderStatusEnum", OrderStatusEnum.values());
         return "wedding/order/index";
     }
 
-    @RequestMapping(value = "/query", method = RequestMethod.POST)
+    @RequestMapping(value = "/query")
     public @ResponseBody String query(Model model, OrderQueryParam param, String ssDate, String seDate){
         param.setStartWeddingDate(OrderMVCUtil.string2Date(ssDate, "yyyy-MM-dd"));
         param.setEndWeddingDate(OrderMVCUtil.string2Date(seDate, "yyyy-MM-dd"));
         Page<OrderQueryResult> page = orderQueryBiz.queryOrder(param);
-        model.addAttribute("page", page);
-        model.addAttribute("param", param);
-        model.addAttribute("ssDate", ssDate);
-        model.addAttribute("seDate", seDate);
-        model.addAttribute("orderStatusEnum", OrderStatusEnum.values());
         return JsonResult.getJsonResult(page);
     }
 

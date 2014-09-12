@@ -56,17 +56,21 @@
         <if test="contractId != null and contractId != ''">
             and o.contract_id = #{contractId}
         </if>
-        <if test="brideName != null and brideName != ''">
-            and o.bride_name = #{brideName}
+        <if test="name != null and name != ''">
+            and
+            (
+              o.bride_name = #{name}
+              or
+              o.bridegroom_name = #{name}
+            )
         </if>
-        <if test="brideTelephone != null and brideTelephone != ''">
-            and o.bride_telephone = #{brideTelephone}
-        </if>
-        <if test="bridegroomName != null and bridegroomName != ''">
-            and o.bridegroom_name = #{bridegroomName}
-        </if>
-        <if test="bridegroomTelephone != null and bridegroomTelephone != ''">
-            and o.bridegroom_telephone = #{bridegroomTelephone}
+        <if test="telephone != null and telephone != ''">
+            and
+            (
+                o.bride_telephone = #{telephone}
+                or
+                o.bridegroom_telephone = #{telephone}
+            )
         </if>
         <if test="startWeddingDate != null">
             <![CDATA[
