@@ -67,8 +67,8 @@
         </table>
     </div>
     <div id="toolbar" style="padding:5px;height:auto">
-        <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="addDepartmentInfo('${ctx}/order/add')">创建订单</a>
-        <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editDepartmentInfo()">修改订单</a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="createOrder('${ctx}/order/add')">创建订单</a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editOrder()">修改订单</a>
         <a href="#" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="deleteAdminUser()">查看详情</a>
         <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="deleteAdminUser()">修改合同</a>
         <a href="#" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="deleteAdminUser()">发票管理</a>
@@ -76,15 +76,16 @@
         <a href="#" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="deleteAdminUser()">管理道具需求</a>
     </div>
 
-    <div id="addDepartmentInfo" class="easyui-dialog" closed="true" buttons="#addDepartmentInfo-buttons" style="padding:10px 20px"></div>
-    <div id="addDepartmentInfo-buttons">
+    <div id="createOrder" class="easyui-dialog" closed="true"
+         buttons="#createOrder-buttons" style="width:400px;height:100px;padding: 5px;background: #fafafa;"></div>
+    <div id="createOrder-buttons">
         <a href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveInfo()">保存</a>
-        <a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#addDepartmentInfo').dialog('close')">关闭</a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#createOrder').dialog('close')">关闭</a>
     </div>
 
-    <div id="editDepartmentInfo" class="easyui-dialog" closed="true" buttons="#editDepartmentInfo-buttons" style="padding:10px 20px"></div>
-    <div id="editDepartmentInfo-buttons">
+    <div id="editOrder" class="easyui-dialog" closed="true" buttons="#editOrder-buttons" style="padding:10px 20px"></div>
+    <div id="editOrder-buttons">
         <a href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveInfo()">保存</a>
-        <a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#editDepartmentInfo').dialog('close')">关闭</a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#editOrder').dialog('close')">关闭</a>
     </div>
 </body>

@@ -21,10 +21,10 @@
         }
     }
     //编辑科室部分
-    function editDepartmentInfo() {
+    function editOrder() {
         var row = $('#dg').datagrid('getSelected');
         if (row) {
-            $('#editDepartmentInfo').dialog('open');
+            $('#editOrder').dialog('open');
             $("#textDepartmentName").val(row.Name);
             $("#textDepartmentDes").val(row.Introduce);
             $("#hoistal").combobox('setValue', row.HosptialID);
@@ -32,7 +32,7 @@
 
             url = 'ashx/DepartmentsManagerService.ashx?action=edit&id=' + row.ID;
             formId = "#edit";
-            dialogId = "#editDepartmentInfo";
+            dialogId = "#editOrder";
 
         }
         else {
@@ -41,22 +41,24 @@
     }
 
     //添加科室部分
-    function addDepartmentInfo(remoteUrl) {
-        $("#addDepartmentInfo").dialog({
-            "title": "新建科室信息",
+    function createOrder(remoteUrl) {
+        $("#createOrder").dialog({
+            "title": "创建订单",
             width: 500,
             height: 450,
+            top:100,
+            left:250,
             href: remoteUrl
         });
-        $('#addDepartmentInfo').dialog('open');
-        $('#add').form('clear');
+        $('#createOrder').dialog('open');
+        $('#createOrder').form('clear');
 
         url = 'ashx/DepartmentsManagerService.ashx?action=add';
-        formId = "#add";
-        dialogId = "#addDepartmentInfo";
+        formId = "#createOrder";
+        dialogId = "#createOrder";
     }
-    function saveInfo() {
 
+    function saveInfo() {
         $(formId).form('submit', {
             url: url,
             onSubmit: function () {
