@@ -88,19 +88,3 @@
             });
         }
     }
-
-    //多条件查询方法
-    function query() {
-        //var name = $("#name").combobox("getValue");
-        var name = $("#name").val();
-        var telephone = $("#telephone").val();
-        var ssDate = $("#ssDate").val();
-        var seDate = $("#seDate").val();
-        var status = $("#status").val();
-
-        //$('#dg').datagrid('options').pageNumber = 1;
-        $('#table').datagrid('getPager').pagination({pageNumber: 1});
-        $('#table').datagrid('options').url = '/order/query?' +
-            'name='+name+'&telephone='+telephone+'&ssDate='+ssDate+'&seDate='+seDate+'&status='+status;
-        $('#table').datagrid("reload");
-    }

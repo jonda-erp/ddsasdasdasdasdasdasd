@@ -14,6 +14,7 @@ import com.jonda.erp.wedding.enums.ProductTypeEnum;
 import com.jonda.erp.wedding.enums.UserTypeEnum;
 import com.jonda.erp.wedding.web.order.util.OrderMVCUtil;
 import com.jonda.rbac.shiro.JondaRbacUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
 
 /**
  * Created by rejoady on 2014/8/9.
@@ -47,7 +49,17 @@ public class OrderController extends BaseController {
     }
 
     @RequestMapping(value = "/query")
-    public @ResponseBody String query(Model model, OrderQueryParam param, String ssDate, String seDate){
+    public @ResponseBody String query(Model model, OrderQueryParam param,
+                                      String ssDate, String seDate){
+        // 由于是ajax请求传入的参数，中文记得在页面编码，然后在Controller里面解码
+        if (StringUtils.isNotBlank(param.getName())) {
+            try {
+                String name = java.net.URLDecoder.decode(param.getName(), "utf-8");
+                param.setName(name);
+            } catch (UnsupportedEncodingException e) {
+                logger.error("[查询订单]解码请求参数[name]失败");
+            }
+        }
         param.setStartWeddingDate(OrderMVCUtil.string2Date(ssDate, "yyyy-MM-dd"));
         param.setEndWeddingDate(OrderMVCUtil.string2Date(seDate, "yyyy-MM-dd"));
         Page<OrderQueryResult> page = orderQueryBiz.queryOrder(param);

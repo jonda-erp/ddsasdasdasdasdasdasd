@@ -8,15 +8,10 @@
 
 **********************************************************/
 
-
-
 $(function(){
 	InitLeftMenu();
 	tabClose();
 	tabCloseEven();
-
-
-
 
 	$('#tabs').tabs({
         onSelect: function (title) {
@@ -87,11 +82,18 @@ function getIcon(menuid){
 	return icon;
 }
 
+function createFrame(url)
+{
+    var s = '<iframe scrolling="auto" frameborder="0"  src="'+url+'" style="width:100%;height:100%;"></iframe>';
+    return s;
+}
+
 function addTab(subtitle,url,icon){
+    var contain
 	if(!$('#tabs').tabs('exists',subtitle)){
 		$('#tabs').tabs('add',{
 			title:subtitle,
-			href:url,
+            content:createFrame(url),
 			closable:true,
 			icon:icon
 		});
@@ -198,3 +200,5 @@ function tabCloseEven()
 function msgShow(title, msgString, msgType) {
 	$.messager.alert(title, msgString, msgType);
 }
+
+
