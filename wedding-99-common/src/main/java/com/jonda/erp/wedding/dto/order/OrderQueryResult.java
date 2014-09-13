@@ -1,6 +1,8 @@
 package com.jonda.erp.wedding.dto.order;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.jonda.common.dto.BaseQueryResult;
+import com.jonda.common.spring.web.json.DateSerializer;
 
 import java.util.Date;
 
@@ -22,6 +24,7 @@ public class OrderQueryResult extends BaseQueryResult {
     // 新郎电话
     private String bridegroomTelephone;
     // 婚庆日期
+
     private Date weddingDate;
     // 订单状态
     private String status;
@@ -76,6 +79,7 @@ public class OrderQueryResult extends BaseQueryResult {
         this.bridegroomTelephone = bridegroomTelephone;
     }
 
+    @JsonSerialize(using=DateSerializer.class)
     public Date getWeddingDate() {
         return weddingDate;
     }

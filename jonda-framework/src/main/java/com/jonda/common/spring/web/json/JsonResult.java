@@ -1,10 +1,17 @@
 package com.jonda.common.spring.web.json;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationConfig;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationConfig;
 import com.jonda.common.dto.Page;
 
+import java.io.IOException;
 import java.io.Serializable;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,9 +35,14 @@ public class JsonResult<T extends Serializable> implements Serializable {
     }
 
     public static <T extends Serializable> String getJsonResult(Page<T> page) {
+        ObjectMapper mapper = new ObjectMapper();
         JsonResult<T> jsonResult = new JsonResult<T>(page);
-        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
-        String json = gson.toJson(jsonResult, JsonResult.class);
+        String json = null;
+        try {
+            json = mapper.writeValueAsString(jsonResult);
+        } catch (JsonProcessingException e) {
+
+        }
         return json;
     }
 
