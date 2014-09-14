@@ -15,11 +15,11 @@
                 <tr>
                     <td class="label">新娘姓名:</td>
                     <td>
-                        <input class="easyui-textbox" name="brideName" data-options="prompt:'请输入新娘姓名',required:true"/>
+                        <input class="easyui-textbox" name="brideName" data-options="prompt:'请输入新娘姓名',required:true,missingMessage:'请输入新娘姓名'"/>
                     </td>
                     <td class="label">新娘电话:</td>
                     <td>
-                        <input class="easyui-textbox" name="brideTelephone" data-options="prompt:'请输入新娘电话',required:true"/>
+                        <input class="easyui-textbox" name="brideTelephone" data-options="prompt:'请输入新娘电话',required:true,missingMessage:'请输入新娘电话',invalidMessage:'请输入新娘电话'"/>
                     </td>
                 </tr>
                 <tr>
