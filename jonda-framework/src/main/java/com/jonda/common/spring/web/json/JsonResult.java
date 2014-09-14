@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.DeserializationConfig;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationConfig;
 import com.jonda.common.dto.Page;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -19,6 +21,8 @@ import java.util.List;
  * Created by rejoady on 2014/9/11.
  */
 public class JsonResult<T extends Serializable> implements Serializable {
+
+    private static final Logger logger = LoggerFactory.getLogger(JsonResult.class);
 
     private Integer total;
 
@@ -41,7 +45,7 @@ public class JsonResult<T extends Serializable> implements Serializable {
         try {
             json = mapper.writeValueAsString(jsonResult);
         } catch (JsonProcessingException e) {
-
+            logger.error("将Page对象转成为Json发生异常，message:{}", e.getMessage(),e);
         }
         return json;
     }

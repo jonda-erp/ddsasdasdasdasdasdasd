@@ -45,7 +45,7 @@
         $("#createOrder").dialog({
             "title": "创建订单",
             width: 500,
-            height: 450,
+            height: 480,
             top:100,
             left:250,
             href: remoteUrl

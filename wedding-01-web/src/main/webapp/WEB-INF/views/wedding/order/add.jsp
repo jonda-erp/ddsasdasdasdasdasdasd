@@ -1,55 +1,62 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
-<head id="Head1">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>婚庆企业管理平台</title>
-    <link rel="stylesheet" type="text/css" href="${ctx}/static/easyui/themes/default/easyui.css" />
-    <link rel="stylesheet" type="text/css" href="${ctx}/static/easyui/themes/icon.css" />
-    <link rel="stylesheet" type="text/css" href="${ctx}/static/easyui/css/default.css"/>
-    <link rel="stylesheet" type="text/css" href="${ctx}/static/easyui/css/wedding.css" />
-    <script type="text/javascript" src="${ctx}/static/easyui/jquery.min.js"></script>
-    <script type="text/javascript" src="${ctx}/static/easyui/jquery.easyui.min.js"></script>
-    <script type="text/javascript" src="${ctx}/static/easyui/locale/easyui-lang-zh_CN.js"></script>
-    <script type="text/javascript" src="${ctx}/static/easyui/application/order/order.js"></script>
-    <script type="text/javascript" src="${ctx}/static/easyui/application/common.js"></script>
-    <script type="text/javascript">
-        var url = "${ctx}/order/doAdd";
-    </script>
-</head>
-<body>
-    <form id="ff" method="post">
-        <div>
-            <label for="brideName">新娘姓名:</label>
-            <input class="easyui-validatebox" type="text" id="brideName" name="brideName" data-options="required:true" />
-        </div>
-        <div>
-            <label for="brideTelephone">新娘电话:</label>
-            <input class="easyui-validatebox" type="text" id="brideTelephone" name="brideTelephone" data-options="validType:'email'" />
-        </div>
-        <div>
-            <label for="bridegroomName">新郎姓名:</label>
-            <input class="easyui-validatebox" type="text" id="bridegroomName" name="bridegroomName" data-options="validType:'email'" />
-        </div>
-        <div>
-            <label for="bridegroomTelephone">新郎电话:</label>
-            <input class="easyui-validatebox" type="text" id="bridegroomTelephone" name="bridegroomTelephone" data-options="validType:'email'" />
-        </div>
-        <div>
-            <label for="sDate">婚庆日期:</label>
-            <input class="easyui-validatebox" type="text" id="sDate" name="sDate" data-options="validType:'email'" />
-        </div>
-        <div>
-            <label for="remark">备注:</label>
-            <input class="easyui-validatebox" type="text" id="remark" name="remark" data-options="validType:'email'" />
-        </div>
-        <div>
-            <label for="contractNo">合同编号:</label>
-            <input class="easyui-validatebox" type="text" id="contractNo" name="contract.contractNo" data-options="validType:'email'" />
-        </div>
-        <div>
-            <label for="content">备注:</label>
-            <input class="easyui-validatebox" type="text" id="content" name="contract.content" data-options="validType:'email'" />
-        </div>
-    </form>
-</body>
+<style>
+    .addForm td {
+        padding:0px; height:35px; line-height:35px; text-overflow:ellipsis; overflow:hidden;
+    }
+    .addForm .label{
+        vertical-align: top;
+    }
+</style>
+<div class="easyui-layout" fit="true">
+    <div region="center" border="false" style="padding: 10px; background: #fff; border: 1px solid #ccc;">
+        <form id="ff" method="post" action="${ctx}/order/doAdd">
+            <table class="addForm">
+                <tr>
+                    <td class="label">新娘姓名:</td>
+                    <td>
+                        <input class="easyui-textbox" name="brideName" data-options="prompt:'请输入新娘姓名',required:true"/>
+                    </td>
+                    <td class="label">新娘电话:</td>
+                    <td>
+                        <input class="easyui-textbox" name="brideTelephone" data-options="prompt:'请输入新娘电话',required:true"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">新郎姓名:</td>
+                    <td>
+                        <input class="easyui-textbox" name="bridegroomName" data-options="prompt:'请输入新郎姓名',required:true"/>
+                    </td>
+                    <td class="label">新郎电话:</td>
+                    <td>
+                        <input class="easyui-textbox" name="bridegroomTelephone" data-options="prompt:'请输入新郎电话',required:true"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">婚庆日期:</td>
+                    <td colspan="3">
+                        <input class="easyui-datebox" name="sDate" data-options="prompt:'请选择婚庆日期',required:true" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">备注:</td>
+                    <td colspan="3">
+                        <input class="easyui-textbox" name="remark" style="width:350px;"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">合同编号:</td>
+                    <td colspan="3">
+                        <input class="easyui-textbox" name="contract.contractNo" style="width:350px;"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">合同内容:</td>
+                    <td colspan="3">
+                        <input class="easyui-textbox" data-options="multiline:true" style="width:350px;height:150px">
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>

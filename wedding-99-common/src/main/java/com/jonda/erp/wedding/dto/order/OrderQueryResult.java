@@ -3,6 +3,7 @@ package com.jonda.erp.wedding.dto.order;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.jonda.common.dto.BaseQueryResult;
 import com.jonda.common.spring.web.json.DateSerializer;
+import com.jonda.erp.wedding.dto.serializer.OrderStatusSerializer;
 
 import java.util.Date;
 
@@ -88,6 +89,7 @@ public class OrderQueryResult extends BaseQueryResult {
         this.weddingDate = weddingDate;
     }
 
+    @JsonSerialize(using=OrderStatusSerializer.class)
     public String getStatus() {
         return status;
     }
