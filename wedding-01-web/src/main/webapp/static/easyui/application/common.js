@@ -26,21 +26,21 @@ function submitForm(formId, dialogId, gridId) {
         url: url,
         method:"POST",
         onSubmit: function () {
-            return $(this).form('validate');
+            return form.form('validate');
         },
         success: function (response) {
             //result为请求处理后的返回值
             var result =  eval('(' + response + ')');
             if (result.statusCode == '200') {
                 $.messager.show({
-                    title: 'Success',
+                    title: '操作成功',
                     msg: result.message
                 });
                 $("#"+dialogId).dialog('close');
                 $('#'+gridId).datagrid('reload');
             } else {
                 $.messager.show({
-                    title: 'Error',
+                    title: '操作失败',
                     msg: result.message
                 });
             }
