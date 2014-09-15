@@ -10,7 +10,7 @@
 </style>
 <div class="easyui-layout" fit="true">
     <div region="center" border="false" style="padding: 10px; background: #fff; border: 1px solid #ccc;">
-        <form id="ff" method="post" action="${ctx}/order/doAdd">
+        <form id="orderAddForm" method="post" action="${ctx}/order/ajax/doAdd">
             <table class="addForm">
                 <tr>
                     <td class="label">新娘姓名:</td>

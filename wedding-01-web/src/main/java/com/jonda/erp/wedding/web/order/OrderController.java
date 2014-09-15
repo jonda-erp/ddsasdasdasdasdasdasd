@@ -48,7 +48,7 @@ public class OrderController extends BaseController {
         return "wedding/order/index";
     }
 
-    @RequestMapping(value = "/query")
+    @RequestMapping(value = "/ajax/query")
     public @ResponseBody String query(Model model, OrderQueryParam param,
                                       String ssDate, String seDate){
         // 由于是ajax请求传入的参数，中文记得在页面编码，然后在Controller里面解码
@@ -74,7 +74,7 @@ public class OrderController extends BaseController {
         return "wedding/order/add";
     }
 
-    @RequestMapping(value = "doAdd", method = RequestMethod.POST)
+    @RequestMapping(value = "/ajax/doAdd", method = RequestMethod.POST)
     public @ResponseBody String doAdd(Model model, Order order, HttpServletRequest request) {
         AjaxResult ajaxResult;
         // 将传入的String类型的参数转换成Date

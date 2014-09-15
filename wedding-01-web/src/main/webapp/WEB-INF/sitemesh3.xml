@@ -3,4 +3,5 @@
     <mapping path="/*" decorator="/WEB-INF/decorators/defaultDecorator.jsp"/>
 
     <mapping path="/rbac/login" exclue="true"/>
+    <mapping path="*/ajax/*" exclue="true"/>
 </sitemesh>

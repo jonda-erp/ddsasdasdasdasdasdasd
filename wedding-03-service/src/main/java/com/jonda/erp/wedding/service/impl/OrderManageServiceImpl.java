@@ -1,5 +1,6 @@
 package com.jonda.erp.wedding.service.impl;
 
+import com.jonda.erp.utils.OrderNoGenerator;
 import com.jonda.erp.wedding.dao.order.ContractManageDao;
 import com.jonda.erp.wedding.dao.order.OrderManageDao;
 import com.jonda.erp.wedding.domain.wedding.order.Contract;
@@ -26,6 +27,7 @@ public class OrderManageServiceImpl implements OrderManageService{
 
     @Override
     public Boolean createOrder(Order order) {
+        order.setOrderNo(OrderNoGenerator.generate());
         order.setStatus(OrderStatusEnum.INIT.getCode());
         orderManageDao.addOrder(order);
         Contract contract = order.getContract();

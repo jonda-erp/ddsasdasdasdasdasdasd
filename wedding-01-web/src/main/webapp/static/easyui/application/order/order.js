@@ -3,23 +3,7 @@
     var formId; //当天要提交的Form的编号
     var dialogId; //对话框的编号
 
-    var successCallback = function (result) {
-        //result为请求处理后的返回值
-        var result = eval('(' + result + ')');
-        if (result.success) {
-            $.messager.show({
-                title: 'Success',
-                msg: result.msg
-            });
-            $(dialogId).dialog('close');
-            $('#dg').datagrid('reload');
-        } else {
-            $.messager.show({
-                title: 'Error',
-                msg: result.msg
-            });
-        }
-    }
+
     //编辑科室部分
     function editOrder() {
         var row = $('#dg').datagrid('getSelected');
@@ -52,22 +36,9 @@
         });
         $('#createOrder').dialog('open');
         $('#createOrder').form('clear');
-
-        url = 'ashx/DepartmentsManagerService.ashx?action=add';
-        formId = "#createOrder";
-        dialogId = "#createOrder";
     }
 
-    function saveInfo() {
-        $(formId).form('submit', {
-            url: url,
-            onSubmit: function () {
-                alert(formId);
-                return $(this).form('validate');
-            },
-            success: successCallback
-        });
-    }
+
 
     //  删除代码部分
     function deleteAdminUser() {

@@ -13,7 +13,21 @@
         <context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
     </context:component-scan>
 
-	<mvc:annotation-driven>
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter" >
+        <property name="messageConverters">
+            <list>
+                <bean class = "org.springframework.http.converter.StringHttpMessageConverter">
+                    <property name = "supportedMediaTypes">
+                        <list>
+                            <value>text/html;charset=UTF-8</value>
+                        </list>
+                    </property>
+                </bean>
+            </list>
+        </property>
+    </bean>
+
+    <mvc:annotation-driven>
 		<mvc:message-converters register-defaults="true">
 			<!-- 将StringHttpMessageConverter的默认编码设为UTF-8 -->
 			<bean class="org.springframework.http.converter.StringHttpMessageConverter">

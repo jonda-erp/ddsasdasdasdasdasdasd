@@ -11,7 +11,7 @@
 
 <body class="easyui-layout" fit="true">
     <div region="north" class="easyui-panel" title="查询条件">
-        <form id="searchForm" action="${ctx}/order/query">
+        <form id="searchForm" action="${ctx}/order/ajax/query">
             <div class="searchitem">
                 <label>姓名：</label>
                 <input type="text" id="name" name="name" class="easyui-textbox" />
@@ -36,18 +36,18 @@
             </div>
             <div class="searchitem">
                 <a href="javascript:query('searchForm','table');" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>&nbsp;&nbsp;
-                <a href="javascript:reset('searchForm','table');" class="easyui-linkbutton" data-options="iconCls:'icon-search'">重置</a>
+                <a href="javascript:window.location.href='${ctx}/order/index';" class="easyui-linkbutton" data-options="iconCls:'icon-search'">重置</a>
             </div>
         </form>
     </div>
     <div region="center">
         <table id="table" region="center" fit="true" class="easyui-datagrid" title="客户订单管理"
-               data-options="url:'${ctx}/order/query',fitColumns:true,singleSelect:true"
+               data-options="url:'${ctx}/order/ajax/query',fitColumns:true,singleSelect:true"
                toolbar='#toolbar' pagination="true" idField="orderId">
             <thead>
                 <tr>
-                    <th data-options="field:'orderId',width:100">订单编号</th>
-                    <th data-options="field:'contractId',width:100">合同编号</th>
+                    <th data-options="field:'orderId',width:130">订单编号</th>
+                    <th data-options="field:'contractId',width:130">合同编号</th>
                     <th data-options="field:'brideName',width:100">新娘姓名</th>
                     <th data-options="field:'brideTelephone',width:100">新娘电话</th>
                     <th data-options="field:'bridegroomName',width:100">新娘姓名</th>
@@ -72,13 +72,13 @@
     <div id="createOrder" class="easyui-dialog" closed="true"
          buttons="#createOrder-buttons" style="width:400px;height:100px;padding: 5px;background: #fafafa;"></div>
     <div id="createOrder-buttons">
-        <a href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveInfo()">保存</a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="submitForm('orderAddForm','createOrder','table')">保存</a>
         <a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#createOrder').dialog('close')">关闭</a>
     </div>
 
     <div id="editOrder" class="easyui-dialog" closed="true" buttons="#editOrder-buttons" style="padding:10px 20px"></div>
     <div id="editOrder-buttons">
-        <a href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveInfo()">保存</a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="submitForm('orderEditForm','editOrder','table')">保存</a>
         <a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#editOrder').dialog('close')">关闭</a>
     </div>
 </body>

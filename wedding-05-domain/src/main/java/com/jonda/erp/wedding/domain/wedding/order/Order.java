@@ -13,6 +13,8 @@ import java.util.List;
  * Created by rejoady on 2014/8/6.
  */
 public class Order extends BaseDomain {
+    // 订单编号
+    private String orderNo;
     // 新娘姓名
     private String brideName;
     // 新娘电话
@@ -34,6 +36,14 @@ public class Order extends BaseDomain {
     private Contract contract;
     // 订单对应开具的发票
     private List<Invoice> invoices;
+
+    public String getOrderNo() {
+        return orderNo;
+    }
+
+    public void setOrderNo(String orderNo) {
+        this.orderNo = orderNo;
+    }
 
     public String getBrideName() {
         return brideName;
