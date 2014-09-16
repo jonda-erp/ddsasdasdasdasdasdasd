@@ -24,8 +24,6 @@ public class ProductUseParam extends BasePageQueryParam {
     // 修改时间
     private Date modifyTime;
 
-    private ProductParam product;
-
     public Date getModifyTime() {
         return modifyTime;
     }
@@ -82,11 +80,4 @@ public class ProductUseParam extends BasePageQueryParam {
         this.createTime = createTime;
     }
 
-    public ProductParam getProduct() {
-        return product;
-    }
-
-    public void setProduct(ProductParam product) {
-        this.product = product;
-    }
 }
