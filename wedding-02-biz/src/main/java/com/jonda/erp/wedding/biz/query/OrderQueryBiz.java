@@ -11,4 +11,5 @@ public interface OrderQueryBiz {
 
     public Page<OrderQueryResult> queryOrder(OrderQueryParam param);
 
+    public OrderQueryResult queryOrderByOrderNo(String orderNo);
 }

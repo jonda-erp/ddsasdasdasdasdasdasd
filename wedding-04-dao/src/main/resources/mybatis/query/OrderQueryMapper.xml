@@ -7,6 +7,8 @@
     <resultMap id="default_result_map" type="OrderQueryResult">
         <id column="order_no" property="orderNo"/>
         <result column="contract_no" property="contractNo"/>
+        <result column="contract_content" property="contractContent"/>
+
         <result column="bride_name" property="brideName"/>
         <result column="bride_telephone" property="brideTelephone"/>
         <result column="bridegroom_name" property="bridegroomName"/>
@@ -24,6 +26,7 @@
         select
             o.order_no as order_no,
             c.contract_no as contract_no,
+            c.contract_content as contract_content,
             o.bride_name as bride_name,
             o.bride_telephone as bride_telephone,
             o.bridegroom_name as bridegroom_name,

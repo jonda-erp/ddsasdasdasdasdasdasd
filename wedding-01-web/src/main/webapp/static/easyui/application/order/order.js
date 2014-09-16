@@ -5,21 +5,19 @@
 
 
     //编辑科室部分
-    function editOrder() {
-        var row = $('#dg').datagrid('getSelected');
+    function editOrder(remoteUrl) {
+        var row = $('#table').datagrid('getSelected');
         if (row) {
+            $("#editOrder").dialog({
+                "title": "修改订单",
+                width: 500,
+                height: 480,
+                top:100,
+                left:250,
+                href: remoteUrl + '?orderNo=' + row.orderNo
+            });
             $('#editOrder').dialog('open');
-            $("#textDepartmentName").val(row.Name);
-            $("#textDepartmentDes").val(row.Introduce);
-            $("#hoistal").combobox('setValue', row.HosptialID);
-            //   $('#edit').form('clear');
-
-            url = 'ashx/DepartmentsManagerService.ashx?action=edit&id=' + row.ID;
-            formId = "#edit";
-            dialogId = "#editOrder";
-
-        }
-        else {
+        } else {
             $.messager.alert("提示", "您没有选中任何行！");
         }
     }

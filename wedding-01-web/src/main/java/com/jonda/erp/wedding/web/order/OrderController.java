@@ -94,8 +94,28 @@ public class OrderController extends BaseController {
     }
 
     @RequestMapping("/modify")
-    public String modify(Model model, Long id) {
-
+    public String modify(Model model, String orderNo) {
+        OrderQueryResult order = orderQueryBiz.queryOrderByOrderNo(orderNo);
+        model.addAttribute("data", order);
         return "wedding/order/modify";
+    }
+
+    @RequestMapping(value = "/ajax/doModify", method = RequestMethod.POST)
+    public @ResponseBody String doModify(Model model, Order order, HttpServletRequest request) {
+        AjaxResult ajaxResult;
+        // 将传入的String类型的参数转换成Date
+        order = OrderMVCUtil.setWeddingDate(order, request);
+        // 参数校验
+        ajaxResult = super.checkParam(order);
+        if (ajaxResult != null) {
+            return ajaxResult(ajaxResult);
+        }
+        // 设置操作人员信息
+        JondaRbacUtil.setDataOperateInfo(order);
+        JondaRbacUtil.setDataOperateInfo(order.getContract());
+        // 保存数据
+        //orderManageBiz.createOrder(order);
+        ajaxResult = new AjaxResult("navTab_wedding_order", "closeCurrent", "操作成功！");
+        return ajaxResult(ajaxResult);
     }
 }

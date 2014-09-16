@@ -26,4 +26,15 @@ public class OrderQueryBizImpl implements OrderQueryBiz {
     public Page<OrderQueryResult> queryOrder(OrderQueryParam param) {
         return orderQueryService.queryOrder(param);
     }
+
+    @Override
+    public OrderQueryResult queryOrderByOrderNo(String orderNo) {
+        OrderQueryParam param = new OrderQueryParam();
+        param.setOrderNo(orderNo);
+        Page<OrderQueryResult> page = orderQueryService.queryOrder(param);
+        if (page != null && page.getData() != null && !page.getData().isEmpty()) {
+            return page.getData().get(0);
+        }
+        return new OrderQueryResult();
+    }
 }

@@ -43,7 +43,7 @@
     <div region="center">
         <table id="table" region="center" fit="true" class="easyui-datagrid" title="客户订单管理"
                data-options="url:'${ctx}/order/ajax/query',fitColumns:true,singleSelect:true"
-               toolbar='#toolbar' pagination="true" idField="orderId">
+               toolbar='#toolbar' pagination="true" idField="orderNo">
             <thead>
                 <tr>
                     <th data-options="field:'orderNo',width:130">订单编号</th>
@@ -61,7 +61,7 @@
     </div>
     <div id="toolbar" style="padding:5px;height:auto">
         <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="createOrder('${ctx}/order/add')">创建订单</a>
-        <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editOrder()">修改订单</a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editOrder('${ctx}/order/modify')">修改订单</a>
         <a href="#" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="deleteAdminUser()">查看详情</a>
         <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="deleteAdminUser()">修改合同</a>
         <a href="#" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="deleteAdminUser()">发票管理</a>
