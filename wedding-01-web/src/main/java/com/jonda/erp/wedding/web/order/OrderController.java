@@ -4,6 +4,7 @@ import com.jonda.common.dto.Page;
 import com.jonda.common.spring.web.AjaxResult;
 import com.jonda.common.spring.web.BaseController;
 import com.jonda.common.spring.web.json.JsonResult;
+import com.jonda.erp.utils.SerializeNoGenerator;
 import com.jonda.erp.wedding.biz.manage.OrderManageBiz;
 import com.jonda.erp.wedding.biz.query.OrderQueryBiz;
 import com.jonda.erp.wedding.domain.wedding.order.Order;
@@ -11,6 +12,7 @@ import com.jonda.erp.wedding.dto.order.OrderQueryParam;
 import com.jonda.erp.wedding.dto.order.OrderQueryResult;
 import com.jonda.erp.wedding.enums.OrderStatusEnum;
 import com.jonda.erp.wedding.enums.ProductTypeEnum;
+import com.jonda.erp.wedding.enums.SerializeTypeEnum;
 import com.jonda.erp.wedding.enums.UserTypeEnum;
 import com.jonda.erp.wedding.web.order.util.OrderMVCUtil;
 import com.jonda.rbac.shiro.JondaRbacUtil;
@@ -68,9 +70,7 @@ public class OrderController extends BaseController {
 
     @RequestMapping("/add")
     public String add(Model model){
-        // TODO 后续可将这两种类型放在数据库通过功能维护
-        model.addAttribute("user_type", UserTypeEnum.values());
-        model.addAttribute("product_type", ProductTypeEnum.values());
+        model.addAttribute("contactNo", SerializeNoGenerator.generate(SerializeTypeEnum.CONTRACT));
         return "wedding/order/add";
     }
 

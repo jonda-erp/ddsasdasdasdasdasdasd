@@ -47,13 +47,13 @@
                 <tr>
                     <td class="label">合同编号:</td>
                     <td colspan="3">
-                        <input class="easyui-textbox" name="contract.contractNo" style="width:350px;"/>
+                        <input class="easyui-textbox" name="contract.contractNo" value="${contactNo}" readonly="true" style="width:350px;"/>
                     </td>
                 </tr>
                 <tr>
                     <td class="label">合同内容:</td>
                     <td colspan="3">
-                        <input class="easyui-textbox" data-options="multiline:true" style="width:350px;height:150px">
+                        <input class="easyui-textbox" name="contract.content" data-options="multiline:true" style="width:350px;height:150px">
                     </td>
                 </tr>
             </table>

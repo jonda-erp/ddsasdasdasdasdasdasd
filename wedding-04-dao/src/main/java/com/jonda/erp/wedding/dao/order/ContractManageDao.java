@@ -11,9 +11,9 @@ import org.apache.ibatis.annotations.Insert;
 public interface ContractManageDao {
 
     @Insert("insert into wedding_contract" +
-            "(order_id, contract_no, contract_content, creator, create_time, modifier, data_status)" +
+            "(order_no, contract_no, contract_content, creator, create_time, modifier, data_status)" +
             "values" +
-            "(#{order.id}, #{contractNo}, #{content}, #{creator}, SYSDATE(), #{modifier}, 1)")
+            "(#{order.orderNo}, #{contractNo}, #{content}, #{creator}, SYSDATE(), #{modifier}, 1)")
     public void addContract(Contract contract);
 
 }

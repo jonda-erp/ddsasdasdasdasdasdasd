@@ -9,9 +9,9 @@ import java.util.Date;
  */
 public class OrderQueryParam extends BasePageQueryParam {
     //订单号
-    private String orderId;
+    private String orderNo;
     //合同号
-    private String contractId;
+    private String contractNo;
     // 姓名(新郎或新娘)
     private String name;
     // 电话(新郎或新娘)
@@ -23,20 +23,20 @@ public class OrderQueryParam extends BasePageQueryParam {
     // 订单状态
     private String status;
 
-    public String getOrderId() {
-        return orderId;
+    public String getOrderNo() {
+        return orderNo;
     }
 
-    public void setOrderId(String orderId) {
-        this.orderId = orderId;
+    public void setOrderNo(String orderNo) {
+        this.orderNo = orderNo;
     }
 
-    public String getContractId() {
-        return contractId;
+    public String getContractNo() {
+        return contractNo;
     }
 
-    public void setContractId(String contractId) {
-        this.contractId = contractId;
+    public void setContractNo(String contractNo) {
+        this.contractNo = contractNo;
     }
 
     public String getName() {

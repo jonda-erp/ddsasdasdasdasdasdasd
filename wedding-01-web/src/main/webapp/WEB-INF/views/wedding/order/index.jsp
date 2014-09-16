@@ -46,8 +46,8 @@
                toolbar='#toolbar' pagination="true" idField="orderId">
             <thead>
                 <tr>
-                    <th data-options="field:'orderId',width:130">订单编号</th>
-                    <th data-options="field:'contractId',width:130">合同编号</th>
+                    <th data-options="field:'orderNo',width:130">订单编号</th>
+                    <th data-options="field:'contractNo',width:130">合同编号</th>
                     <th data-options="field:'brideName',width:100">新娘姓名</th>
                     <th data-options="field:'brideTelephone',width:100">新娘电话</th>
                     <th data-options="field:'bridegroomName',width:100">新娘姓名</th>

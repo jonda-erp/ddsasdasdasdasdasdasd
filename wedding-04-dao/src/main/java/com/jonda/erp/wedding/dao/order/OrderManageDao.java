@@ -12,9 +12,8 @@ import org.apache.ibatis.annotations.SelectKey;
 public interface OrderManageDao {
 
     @Insert("insert into wedding_order" +
-            "(order_id,bride_name, bride_telephone, bridegroom_name, bridegroom_telephone, wedding_date, order_status, remark, creator, create_time, modifier, data_status)" +
+            "(order_no,bride_name, bride_telephone, bridegroom_name, bridegroom_telephone, wedding_date, order_status, remark, creator, create_time, modifier, data_status)" +
             "values" +
             "(#{orderNo},#{brideName}, #{brideTelephone}, #{bridegroomName}, #{bridegroomTelephone}, #{weddingDate}, #{status}, #{remark}, #{creator}, SYSDATE(), #{modifier}, 1)")
-    @SelectKey(statement="select last_insert_id() as id", keyProperty="id", before=false, resultType=Long.class)
     public void addOrder(Order order);
 }
