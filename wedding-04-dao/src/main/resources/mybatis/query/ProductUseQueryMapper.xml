@@ -4,7 +4,7 @@
 <!-- namespace必须指向Dao接口 -->
 <mapper namespace="com.jonda.erp.wedding.dao.product.ProductUseQueryDao">
 
-    <resultMap id="query_result_map" type="ProductUseParam">
+    <resultMap id="query_result_map" type="ProductUseResult">
         <id column="id" property="id"/>
         <result column="contract_id" property="contractId"/>
         <result column="product_id" property="productId"/>
@@ -13,7 +13,7 @@
         <result column="create_time" property="createTime"/>
         <result column="modifier" property="modifier"/>
         <result column="modify_time" property="modifyTime"/>
-        <association property="product" javaType="ProductParam">
+        <association property="product" javaType="ProductResult">
             <id column="product_id" property="productId"/>
             <result column="product_name" property="productName"/>
             <result column="product_type" property="productType"/>

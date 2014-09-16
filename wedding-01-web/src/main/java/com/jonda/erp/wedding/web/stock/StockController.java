@@ -2,20 +2,25 @@ package com.jonda.erp.wedding.web.stock;
 
 import com.jonda.common.dto.Page;
 import com.jonda.common.spring.web.BaseController;
+import com.jonda.common.spring.web.json.JsonResult;
 import com.jonda.erp.wedding.biz.query.OrderQueryBiz;
 import com.jonda.erp.wedding.biz.query.ProductUseQueryBiz;
 import com.jonda.erp.wedding.dto.order.OrderQueryParam;
 import com.jonda.erp.wedding.dto.order.OrderQueryResult;
 import com.jonda.erp.wedding.dto.product.ProductUseParam;
+import com.jonda.erp.wedding.dto.product.ProductUseResult;
 import com.jonda.erp.wedding.enums.OrderStatusEnum;
 import com.jonda.erp.wedding.web.order.util.OrderMVCUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import java.io.UnsupportedEncodingException;
 
 /**
  * Created by Administrator on 2014/8/19.
@@ -49,12 +54,17 @@ public class StockController extends BaseController {
     }
 
     @RequestMapping("/busiOutByContract")
-    public String busiOutByContract(Model model,ProductUseParam param,int contractId){
-        param.setContractId(contractId);
-        logger.info("contractId="+String.valueOf(contractId));
-        Page<ProductUseParam> page = productUseQueryBiz.queryProductUse(param);
-        model.addAttribute("page", page);
-        model.addAttribute("param", param);
+    public String busiOutByContract(Model model){
         return "wedding/stock/busiOutByContractId";
+    }
+
+    @RequestMapping(value = "/ajax/query")
+    public @ResponseBody
+    String query(Model model,ProductUseParam param,String contractId){
+        param.setContractId("C000120140826212725");
+        Page<ProductUseResult> page = productUseQueryBiz.queryProductUse(param);
+        logger.info("xxxxxxxxxxx");
+        logger.info("jsonStr:"+JsonResult.getJsonResult(page));
+        return JsonResult.getJsonResult(page);
     }
 }

@@ -4,6 +4,7 @@ import com.jonda.common.dto.Page;
 import com.jonda.erp.wedding.biz.query.ProductUseQueryBiz;
 import com.jonda.erp.wedding.dto.order.OrderQueryResult;
 import com.jonda.erp.wedding.dto.product.ProductUseParam;
+import com.jonda.erp.wedding.dto.product.ProductUseResult;
 import com.jonda.erp.wedding.service.ProductUseQueryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +24,7 @@ public class ProductUseQueryBizImpl implements ProductUseQueryBiz {
     private ProductUseQueryService productUseQueryService;
 
     @Override
-    public Page<ProductUseParam> queryProductUse(ProductUseParam param) {
+    public Page<ProductUseResult> queryProductUse(ProductUseParam param) {
         return productUseQueryService.queryProductUse(param);
     }
 }

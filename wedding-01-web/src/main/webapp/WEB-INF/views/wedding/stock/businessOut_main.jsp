@@ -1,157 +1,86 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-
-<form id="pagerForm" method="post" action="${ctx}/stock/busiOut">
-    <input type="hidden" name="pageNo" value="${page.pageNo}" />
-    <input type="hidden" name="pageSize" value="${page.pageSize}" />
-    <input type="hidden" name="orderField" value="${param.orderField}" />
-    <input type="hidden" name="orderDirection" value="${param.orderDirection}" />
-</form>
-<div class="pageHeader">
-    <form rel="pagerForm" onsubmit="return navTabSearch(this);" action="${ctx}/stock/busiOut" method="post">
-        <div class="searchBar">
-            <div class="pageFormContent">
-                <p>
-                    <label>新娘姓名：</label>
-                    <input  type="text" name="brideName" size="30" value="" />
-                </p>
-                <p>
-                    <label>新娘电话：</label>
-                    <input type="text" class="phone" name="brideTelephone" size="30" value=""/>
-                </p>
-                <p>
-                    <label>新郎姓名：</label>
-                    <input type="text" name="bridegroomName" size="30" value=""/>
-                </p>
-                <p>
-                    <label>新郎电话：</label>
-                    <input type="text" name="bridegroomTelephone" size="30" value=""/>
-                </p>
-                <p>
-                    <label>订单号：</label>
-                    <input type="text" name="orderId" size="30" value=""/>
-                </p>
-                <p>
-                    <label>合同号：</label>
-                    <input type="text" name="contractId" size="30" value=""/>
-                </p>
-                <p>
-                    <label>订单状态：</label>
-                    <select class="combox" name="status">
-                        <option value="">全部</option>
-                        <c:forEach var="item" items="${orderStatusEnum}">
-                            <c:choose>
-                                <c:when test="${item.code == param.status}">
-                                    <option value="${item.code}" selected="selected">${item.message}</option>
-                                </c:when>
-                                <c:otherwise>
-                                    <option value="${item.code}">${item.message}</option>
-                                </c:otherwise>
-                            </c:choose>
-                        </c:forEach>
-                    </select>
-                </p>
-                <p>&nbsp;</p>
-                <p>
-                    <label>婚庆日期：</label>
-                    <input name="ssDate" class="date" value="${ssDate}" readonly="readonly" size="30" class="required" type="text">
-                    <a href="javascript:void(0)" class="inputDateButton">选择</a>
-                </p>
-                <p>
-                    <label>-</label>
-                    <input name="seDate" class="date" value="${seDate}" readonly="readonly" size="30" class="required" type="text">
-                    <a href="javascript:void(0)" class="inputDateButton">选择</a>
-                </p>
-                <p>&nbsp;</p>
-                <p>&nbsp;</p>
-            </div>
-            <div class="divider"></div>
-            <div class="subBar">
-                <ul>
-                    <li><div class="buttonActive"><div class="buttonContent"><button type="submit">查询</button></div></div></li>
-                </ul>
-            </div>
+<c:set var="ctx" value="${pageContext.request.contextPath}"/>
+<head id="Head1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>婚庆企业管理平台</title>
+    <script>
+        function busiOutByConId() {
+            var row = $('#dataList').datagrid('getSelected');
+            if (row){
+                var remoteUrl = "${ctx}/stock/busiOutByContract";
+                $("#busiOutByConId").dialog({
+                    "title": "合同出库",
+                    toolbar: '#busiOutByConId',
+                    buttons: '#busiOutByConId-buttons',
+                    href:remoteUrl
+                });
+                $('#busiOutByConId').dialog('open');
+            }
+        }
+    </script>
+</head>
+<body class="easyui-layout" fit="true">
+<div region="north" class="easyui-panel" title="查询条件">
+    <form id="searchForm" action="${ctx}/order/query">
+        <div class="searchitem">
+            <label>姓名：</label>
+            <input type="text" id="name" name="name" class="easyui-validatebox" />
+        </div>
+        <div class="searchitem">
+            <label>电话：</label>
+            <input type="text" id="telephone" name="telephone" class="easyui-validatebox" />
+        </div>
+        <div class="searchitem">
+            <label>婚庆日期：</label>
+            <input type="text" id="ssDate" name="ssDate" class="easyui-datebox" /> 至
+            <input type="text" id="seDate" name="seDate" class="easyui-datebox" />
+        </div>
+        <div class="searchitem">
+            <label>订单状态：</label>
+            <select class="easyui-combobox" id="status" name="status" style="width:100px;">
+                <option value="">全部</option>
+                <c:forEach var="item" items="${orderStatusEnum}">
+                    <option value="${item.code}">${item.message}</option>
+                </c:forEach>
+            </select>
+        </div>
+        <div class="searchitem">
+            <a href="javascript:query('searchForm','table')" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>&nbsp;&nbsp;
+            <a href="javascript:window.location.reload();" class="easyui-linkbutton" data-options="iconCls:'icon-reload'">重置</a>
         </div>
     </form>
 </div>
+<div region="center">
+    <table id="dataList" region="center" fit="true" class="easyui-datagrid" title="客户订单管理"
+           data-options="url:'${ctx}/order/ajax/query',fitColumns:true,singleSelect:true"
+           toolbar='#toolbar' pagination="true" idField="orderId">
+        <thead>
+        <tr>
+            <th data-options="field:'orderId',width:100">订单编号</th>
+            <th data-options="field:'contractId',width:100">合同编号</th>
+            <th data-options="field:'brideName',width:100">新娘姓名</th>
+            <th data-options="field:'brideTelephone',width:100">新娘电话</th>
+            <th data-options="field:'bridegroomName',width:100">新娘姓名</th>
+            <th data-options="field:'bridegroomTelephone',width:100">新娘电话</th>
+            <th data-options="field:'weddingDate',width:100">婚庆日期</th>
+            <th data-options="field:'status',width:100">状态</th>
+            <th data-options="field:'remark',width:100">备注</th>
+        </tr>
+        </thead>
+    </table>
+</div>
+<div id="toolbar" style="padding:5px;height:auto">
+    <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="busiOutByConId()">订单合同出库</a>
+    <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editOrder()">订单额外出库</a>
+    <a href="#" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="deleteAdminUser()">查看出库详情</a>
+</div>
 
-<div class="pageContent">
-    <div class="panelBar">
-        <ul class="toolBar">
-            <li><a class="add" href="${ctx}/stock/busiOutByContract?id=C000120140826212725" target="dialog" width="980" height="578" rel="busi_out_dialog"><span>订单合同出库</span></a></li>
-            <li><a class="edit" href="${ctx}/rbac/user/modify?id={v_contract_id}" target="dialog" width="480" rel="order_modify_dialog" warn="请选择一条记录"><span>订单额外出库</span></a></li>
-            <li><a class="edit" href="${ctx}/rbac/user/modify?id={v_contract_id}" target="dialog" width="480" rel="order_modify_dialog" warn="请选择一条记录"><span>查看出库详情</span></a></li>
-            <li class="line">line</li>
-        </ul>
-    </div>
-
-    <div id="w_list_print">
-        <table class="list" width="98%" targetType="navTab" asc="asc" desc="desc" layoutH="116">
-            <thead>
-            <tr>
-                <th width="140" orderField="brideName" class="asc">订单号</th>
-                <th width="140" orderField="brideName">合同号</th>
-                <th width="80" orderField="brideName" class="asc">新娘姓名</th>
-                <th width="100" orderField="brideTelephone" class="desc">新娘电话</th>
-                <th width="80" orderField="bridegroomName" >新郎姓名</th>
-                <th width="100" orderField="bridegroomName" >新郎电话</th>
-                <th width="100" orderField="bridegroomName" >婚庆日期</th>
-                <th width="60">订单状态</th>
-                <th>备注</th>
-                <th width="80">创建人</th>
-                <th width="130">创建时间</th>
-                <th width="80">最后修改人</th>
-                <th width="130">最后修改时间</th>
-            </tr>
-            </thead>
-            <tbody>
-            <c:forEach var="item" items="${page.data}">
-                <tr target="v_contract_id" rel="${item.contractId}">
-                    <td>${item.orderId}</td>
-                    <td>${item.contractId}</td>
-                    <td>${item.brideName}</td>
-                    <td>${item.brideTelephone}</td>
-                    <td>${item.bridegroomName}</td>
-                    <td>${item.bridegroomTelephone}</td>
-                    <td><fmt:formatDate value="${item.weddingDate}" pattern="yyyy-MM-dd"/></td>
-                    <td>${item.status}</td>
-                    <td>
-                        <c:choose>
-                            <c:when test="${item.remark != null and item.remark.length() > 15}">
-                                ${fn:substring(item.remark, 0, 15)}...
-                            </c:when>
-                            <c:otherwise>
-                                ${item.remark}
-                            </c:otherwise>
-                        </c:choose>
-                    </td>
-                    <td>${item.creator}</td>
-                    <td><fmt:formatDate value="${item.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
-                    <td>${item.modifier}</td>
-                    <td><fmt:formatDate value="${item.modifyTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
-                </tr>
-            </c:forEach>
-            </tbody>
-        </table>
-    </div>
-
-    <div class="panelBar" >
-        <div class="pages">
-            <span>显示</span>
-            <select name="numPerPage" onchange="navTabPageBreak({pageSize:${page.pageSize}})">
-                <option value="20">20</option>
-                <option value="50">50</option>
-                <option value="100">100</option>
-                <option value="200">200</option>
-            </select>
-            <span>条，共${page.totalCount}条</span>
-        </div>
-
-        <div class="pagination" targetType="navTab" totalCount="${page.totalCount}" numPerPage="${page.pageSize}" pageNumShown="10" currentPage="${page.pageNo}"/>
-
-    </div>
+<div id="busiOutByConId" class="easyui-dialog" closed="true" style="width:600px;height:400px;top:100px;padding:5px;background: #fafafa;">
 
 </div>
+<div id="busiOutByConId-buttons">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveInfo()">提交</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#busiOutByConId').dialog('close')">关闭</a>
+</div>
+</body>

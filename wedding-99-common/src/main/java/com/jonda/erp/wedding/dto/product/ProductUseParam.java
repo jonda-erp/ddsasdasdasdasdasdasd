@@ -10,7 +10,7 @@ import java.util.Date;
 public class ProductUseParam extends BasePageQueryParam {
 
     //合同ID
-    private int contractId;
+    private String contractId;
     //道具ID
     private int productId;
     // 道具个数
@@ -23,6 +23,8 @@ public class ProductUseParam extends BasePageQueryParam {
     private String modifier;
     // 修改时间
     private Date modifyTime;
+
+    private ProductParam product;
 
     public Date getModifyTime() {
         return modifyTime;
@@ -40,11 +42,11 @@ public class ProductUseParam extends BasePageQueryParam {
         this.modifier = modifier;
     }
 
-    public int getContractId() {
+    public String getContractId() {
         return contractId;
     }
 
-    public void setContractId(int contractId) {
+    public void setContractId(String contractId) {
         this.contractId = contractId;
     }
 
@@ -78,5 +80,13 @@ public class ProductUseParam extends BasePageQueryParam {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public ProductParam getProduct() {
+        return product;
+    }
+
+    public void setProduct(ProductParam product) {
+        this.product = product;
     }
 }

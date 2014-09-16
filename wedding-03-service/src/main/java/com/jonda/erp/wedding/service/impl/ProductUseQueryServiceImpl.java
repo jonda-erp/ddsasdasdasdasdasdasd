@@ -6,6 +6,7 @@ import com.jonda.erp.wedding.domain.wedding.order.ProductUse;
 import com.jonda.erp.wedding.dto.order.OrderQueryParam;
 import com.jonda.erp.wedding.dto.order.OrderQueryResult;
 import com.jonda.erp.wedding.dto.product.ProductUseParam;
+import com.jonda.erp.wedding.dto.product.ProductUseResult;
 import com.jonda.erp.wedding.service.OrderQueryService;
 import com.jonda.erp.wedding.service.ProductUseQueryService;
 import org.slf4j.Logger;
@@ -28,7 +29,7 @@ public class ProductUseQueryServiceImpl implements ProductUseQueryService {
     private PageQueryDao pageQueryDao;
 
     @Override
-    public Page<ProductUseParam> queryProductUse(ProductUseParam param) {
+    public Page<ProductUseResult> queryProductUse(ProductUseParam param) {
         return pageQueryDao.query("com.jonda.erp.wedding.dao.product.ProductUseQueryDao.queryProductUsePage", param);
     }
 }
