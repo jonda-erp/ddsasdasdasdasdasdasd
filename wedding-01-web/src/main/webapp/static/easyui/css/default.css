@@ -34,3 +34,7 @@ a:hover{ color:Red; text-decoration:underline;}
 .icon-database{ background-position:-20px -140px;}
 .icon-expand{ background:url(../themes/icons/edit_add.png) no-repeat;}
 .icon-collapse{ background:url(../themes/icons/edit_remove.png) no-repeat;}
+
+.icon-tab-search{ background-position:-60px -260px;}
+.icon-tab-invoice{ background-position:-120px -360px;}
+.icon-tab-shop{ background-position:-200px -80px;}
