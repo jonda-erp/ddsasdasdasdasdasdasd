@@ -40,28 +40,22 @@ public class StockController extends BaseController {
         return "wedding/stock/apply";
     }
 
-    @RequestMapping("/businessOut")
-    public String businessOut(Model model, OrderQueryParam param, String ssDate, String seDate){
-        param.setStartWeddingDate(OrderMVCUtil.string2Date(ssDate, "yyyy-MM-dd"));
-        param.setEndWeddingDate(OrderMVCUtil.string2Date(seDate, "yyyy-MM-dd"));
-        Page<OrderQueryResult> page = orderQueryBiz.queryOrder(param);
-        model.addAttribute("page", page);
-        model.addAttribute("param", param);
-        model.addAttribute("ssDate", ssDate);
-        model.addAttribute("seDate", seDate);
+    @RequestMapping(value = "/index")
+    public String index(Model model) {
         model.addAttribute("orderStatusEnum", OrderStatusEnum.values());
         return "wedding/stock/businessOut_main";
     }
 
     @RequestMapping("/busiOutByContract")
-    public String busiOutByContract(Model model){
+    public String busiOutByContract(Model model, String contractNo){
+        model.addAttribute("contractNo",contractNo);
         return "wedding/stock/busiOutByContractId";
     }
 
     @RequestMapping(value = "/ajax/query")
     public @ResponseBody
-    String query(Model model,ProductUseParam param,String contractId){
-        param.setContractId("C000120140826212725");
+    String query(Model model,ProductUseParam param, String contractNo){
+        param.setContractId(contractNo);
         Page<ProductUseResult> page = productUseQueryBiz.queryProductUse(param);
         logger.info("xxxxxxxxxxx");
         logger.info("jsonStr:"+JsonResult.getJsonResult(page));

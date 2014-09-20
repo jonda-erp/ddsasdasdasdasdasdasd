@@ -1,11 +1,12 @@
 package com.jonda.erp.wedding.service.impl;
 
-import com.jonda.erp.utils.OrderNoGenerator;
+import com.jonda.erp.utils.SerializeNoGenerator;
 import com.jonda.erp.wedding.dao.order.ContractManageDao;
 import com.jonda.erp.wedding.dao.order.OrderManageDao;
 import com.jonda.erp.wedding.domain.wedding.order.Contract;
 import com.jonda.erp.wedding.domain.wedding.order.Order;
 import com.jonda.erp.wedding.enums.OrderStatusEnum;
+import com.jonda.erp.wedding.enums.SerializeTypeEnum;
 import com.jonda.erp.wedding.service.OrderManageService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,7 +28,8 @@ public class OrderManageServiceImpl implements OrderManageService{
 
     @Override
     public Boolean createOrder(Order order) {
-        order.setOrderNo(OrderNoGenerator.generate());
+        String orderNo = SerializeNoGenerator.generate(SerializeTypeEnum.ORDER);
+        order.setOrderNo(orderNo);
         order.setStatus(OrderStatusEnum.INIT.getCode());
         orderManageDao.addOrder(order);
         Contract contract = order.getContract();

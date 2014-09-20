@@ -1,82 +1,39 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
-<div class="accordionHeader">
-    <h2><span>Folder</span>业务管理</h2>
-</div>
-<div class="accordionContent">
-    <ul class="tree treeFolder">
-        <li><a>订单管理</a>
-            <ul>
-                <li><a href="${ctx}/order/query" target="navTab" rel="navTab_wedding_order">订单管理</a></li>
-            </ul>
-        </li>
-        <li><a>客户管理</a>
-            <ul>
-                <li><a href="w_panel.html" target="navTab" rel="w_panel">会员创建</a></li>
-                <li><a href="w_tabs.html" target="navTab" rel="w_tabs">会员查询</a></li>
-                <li><a href="w_tabs.html" target="navTab" rel="w_tabs1">客户回访</a></li>
-            </ul>
-        </li>
-
-        <li><a>日常管理</a>
-            <ul>
-                <li><a href="w_validation.html" target="navTab" rel="w_validation">道具管理</a></li>
-                <li><a href="w_button.html" target="navTab" rel="w_button">人员派工</a></li>
-                <li><a href="w_textInput.html" target="navTab" rel="w_textInput">收支管理</a></li>
-                <li><a href="w_combox.html" target="navTab" rel="w_combox">流失管理</a></li>
-            </ul>
-        </li>
-    </ul>
-</div>
-<div class="accordionHeader">
-    <h2><span>Folder</span>库存管理</h2>
-</div>
-<div class="accordionContent">
-    <ul class="tree treeFolder">
-        <li><a href="${ctx}/stock/businessOut" target="navTab" rel="stock_purchase">业务出库</a></li>
-        <li><a href="${ctx}/stock/otherOut" target="navTab" rel="stock_purchase">其他出库</a></li>
-        <li><a href="${ctx}/stock/outOrder" target="navTab" rel="stock_purchase">出库订单</a></li>
-        <li><a href="${ctx}/stock/apply" target="navTab" rel="stock_purchase">采购申请</a></li>
-        <li><a href="demo_page1.html" target="navTab" rel="demo_page2">调拨管理</a></li>
-        <li><a href="demo_page4.html" target="navTab" rel="demo_page4">销售出库</a></li>
-        <li><a href="demo_page5.html" target="navTab" rel="demo_page5">库存查询</a></li>
-    </ul>
-</div>
-<div class="accordionHeader">
-    <h2><span>Folder</span>报表中心</h2>
-</div>
-<div class="accordionContent">
-    <ul class="tree treeFolder">
-        <li><a href="newPage1.html" target="navTab" rel="dlg_page">订单统计</a></li>
-        <li><a href="newPage1.html" target="navTab" rel="dlg_page2">收支统计</a></li>
-        <li><a href="newPage1.html" target="navTab" rel="dlg_page3">派工报表</a></li>
-        <li><a href="newPage1.html" target="navTab" rel="dlg_page4">利润统计</a></li>
-        <li><a href="newPage1.html" target="navTab" rel="dlg_page5">库存统计</a></li>
-    </ul>
-</div>
-<div class="accordionHeader">
-    <h2><span>Folder</span>系统设置</h2>
-</div>
-<div class="accordionContent">
-    <ul class="tree treeFolder">
-        <li><a>系统用户管理</a>
-            <ul>
-                <li><a href="${ctx}/rbac/user/index" target="navTab" rel="navTab_rbac_user">系统用户设置</a></li>
-                <li><a href="${ctx}/rbac/role/index" target="navTab" rel="navTab_rbac_role">用户角色设置</a></li>
-                <li><a href="${ctx}/rbac/permission/index" target="navTab" rel="navTab_rbac_permission">系统权限设置</a></li>
-            </ul>
-        </li>
-        <li><a>员工设置</a>
-            <ul>
-                <li><a href="newPage1.html" target="navTab" rel="dlg_page3">员工管理</a></li>
-                <li><a href="${ctx}/rbac/department/index" target="navTab" rel="dlg_page6">部门设置</a></li>
-
-            </ul>
-        </li>
-        <li><a>企业设置</a>
-            <ul>
-                <li><a href="newPage1.html" target="navTab" rel="dlg_page4">道具设置</a></li>
-                <li><a href="newPage1.html" target="navTab" rel="dlg_page5">产品设置</a></li>
-            </ul>
-        </li>
-    </ul>
-</div>
+<script type="text/javascript">
+    var _menus = {"menus":[
+        {"menuid":"1","icon":"icon-sys","menuname":"订单管理",
+            "menus":[
+                {"menuid":"12","menuname":"订单管理","icon":"icon-add","url":"${ctx}/order/index"},
+                {"menuid":"13","menuname":"用户管理","icon":"icon-users","url":"a.html"},
+                {"menuid":"14","menuname":"角色管理","icon":"icon-role","url":"http://www.baidu.com"},
+                {"menuid":"15","menuname":"权限设置","icon":"icon-set","url":"demo.html"},
+                {"menuid":"16","menuname":"系统日志","icon":"icon-log","url":"demo1.html"}
+            ]
+        },
+        {"menuid":"8","icon":"icon-sys","menuname":"库存管理",
+            "menus":[
+                {"menuid":"21","menuname":"合同出库","icon":"icon-nav","url":"${ctx}/stock/index"},
+                {"menuid":"22","menuname":"其他出库","icon":"icon-nav","url":"${ctx}/stock/otherOut"},
+                {"menuid":"22","menuname":"出库订单","icon":"icon-nav","url":"${ctx}/stock/outOrder"},
+                {"menuid":"22","menuname":"采购申请","icon":"icon-nav","url":"${ctx}/stock/apply"}
+            ]
+        },
+        {"menuid":"56","icon":"icon-sys","menuname":"部门管理",
+            "menus":[{"menuid":"31","menuname":"添加部门","icon":"icon-nav","url":"demo1.html"},
+                {"menuid":"32","menuname":"部门列表","icon":"icon-nav","url":"demo2.html"}
+            ]
+        },
+        {"menuid":"28","icon":"icon-sys","menuname":"财务管理",
+            "menus":[{"menuid":"41","menuname":"收支分类","icon":"icon-nav","url":"demo.html"},
+                {"menuid":"42","menuname":"报表统计","icon":"icon-nav","url":"demo1.html"},
+                {"menuid":"43","menuname":"添加支出","icon":"icon-nav","url":"demo2.html"}
+            ]
+        },
+        {"menuid":"39","icon":"icon-sys","menuname":"商城管理",
+            "menus":[{"menuid":"51","menuname":"商品分类","icon":"icon-nav","url":"demo.html"},
+                {"menuid":"52","menuname":"商品列表","icon":"icon-nav","url":"demo1.html"},
+                {"menuid":"53","menuname":"商品订单","icon":"icon-nav","url":"demo2.html"}
+            ]
+        }
+    ]};
+</script>
