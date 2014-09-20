@@ -18,7 +18,7 @@
     </noscript>
     <div region="north" split="true" border="false" style="overflow: hidden; height: 30px;
             background: url(${ctx}/static/easyui/images/layout-browser-hd-bg.gif) #7f99be repeat-x center 50%;
-            line-height: 20px;color: #fff; font-family: Verdana, 微软雅黑,黑体">
+            line-height: 20px;color: #fff; font-family: Verdana, '微软雅黑','黑体'">
         <span style="float:right; padding-right:20px;" class="head">
             欢迎 <shiro:principal/>
             <a href="#" id="editpass">修改密码</a>
