@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<table id="stageList" class="easyui-datagrid" data-options="url:'${ctx}/stock/ajax/query',method:'get',singleSelect:true,fit:true,fitColumns:true">
+<table id="stageList" class="easyui-datagrid" data-options="url:'${ctx}/stock/ajax/query?contractNo=${contractNo}',method:'get',singleSelect:true,fit:true,fitColumns:true">
     <thead>
     <tr>
         <th data-options="field:'contractId'" width="100">道具名称</th>

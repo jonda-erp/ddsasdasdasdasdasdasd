@@ -13,7 +13,7 @@
                     "title": "合同出库",
                     toolbar: '#busiOutByConId',
                     buttons: '#busiOutByConId-buttons',
-                    href:remoteUrl
+                    href: remoteUrl + '?contractNo=' + row.contractNo
                 });
                 $('#busiOutByConId').dialog('open');
             }
@@ -54,11 +54,11 @@
 <div region="center">
     <table id="dataList" region="center" fit="true" class="easyui-datagrid" title="客户订单管理"
            data-options="url:'${ctx}/order/ajax/query',fitColumns:true,singleSelect:true"
-           toolbar='#toolbar' pagination="true" idField="orderId">
+           toolbar='#toolbar' pagination="true" idField="contractNo">
         <thead>
         <tr>
-            <th data-options="field:'orderId',width:100">订单编号</th>
-            <th data-options="field:'contractId',width:100">合同编号</th>
+            <th data-options="field:'orderNo',width:100">订单编号</th>
+            <th data-options="field:'contractNo',width:100">合同编号</th>
             <th data-options="field:'brideName',width:100">新娘姓名</th>
             <th data-options="field:'brideTelephone',width:100">新娘电话</th>
             <th data-options="field:'bridegroomName',width:100">新娘姓名</th>
