@@ -95,7 +95,7 @@ public class OrderController extends BaseController {
 
     @RequestMapping("/modify")
     public String modify(Model model, String orderNo) {
-        OrderQueryResult order = orderQueryBiz.queryOrderByOrderNo(orderNo);
+        OrderQueryResult order = orderQueryBiz.getByOrderNo(orderNo);
         model.addAttribute("data", order);
         return "wedding/order/modify";
     }
@@ -111,11 +111,18 @@ public class OrderController extends BaseController {
             return ajaxResult(ajaxResult);
         }
         // 设置操作人员信息
-        JondaRbacUtil.setDataOperateInfo(order);
-        JondaRbacUtil.setDataOperateInfo(order.getContract());
+        JondaRbacUtil.setDataOperateInfo(order, Boolean.TRUE);
+        JondaRbacUtil.setDataOperateInfo(order.getContract(), Boolean.TRUE);
         // 保存数据
         //orderManageBiz.createOrder(order);
         ajaxResult = new AjaxResult("navTab_wedding_order", "closeCurrent", "操作成功！");
         return ajaxResult(ajaxResult);
+    }
+
+    @RequestMapping("/detail")
+    public String detail(Model model, String orderNo) {
+        OrderQueryResult order = orderQueryBiz.getByOrderNo(orderNo);
+        model.addAttribute("data", order);
+        return "wedding/order/detail";
     }
 }

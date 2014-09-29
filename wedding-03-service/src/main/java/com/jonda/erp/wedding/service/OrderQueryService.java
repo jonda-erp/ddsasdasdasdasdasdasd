@@ -9,6 +9,20 @@ import com.jonda.erp.wedding.dto.order.OrderQueryResult;
  */
 public interface OrderQueryService {
 
+    /**
+     * 分页查询订单信息
+     *
+     * @param param
+     * @return
+     */
     public Page<OrderQueryResult> queryOrder(OrderQueryParam param);
+
+    /**
+     * 根据订单编号查询订单信息
+     *
+     * @param orderNo
+     * @return
+     */
+    public OrderQueryResult getByOrderNo(String orderNo);
 
 }

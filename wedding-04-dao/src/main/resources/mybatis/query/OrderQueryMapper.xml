@@ -22,6 +22,28 @@
         <result column="modify_time" property="modifyTime"/>
     </resultMap>
 
+    <select id="getByNo" resultMap="default_result_map" parameterType="java.lang.String">
+        select
+        o.order_no as order_no,
+        c.contract_no as contract_no,
+        c.contract_content as contract_content,
+        o.bride_name as bride_name,
+        o.bride_telephone as bride_telephone,
+        o.bridegroom_name as bridegroom_name,
+        o.bridegroom_telephone as bridegroom_telephone,
+        o.wedding_date as wedding_date,
+        o.order_status as order_status,
+        o.remark as remark,
+        o.creator as creator,
+        o.create_time as create_time,
+        o.modifier as modifier,
+        o.modify_time as modify_time
+        from wedding_order o
+        left join wedding_contract c on o.order_no=c.order_no
+        where o.data_status=1
+        and o.order_no = #{orderNo}
+    </select>
+
     <select id="queryOrderPage" resultMap="default_result_map" parameterType="OrderQueryParam">
         select
             o.order_no as order_no,

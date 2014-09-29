@@ -2,6 +2,7 @@ package com.jonda.erp.wedding.service.impl;
 
 import com.jonda.common.dao.PageQueryDao;
 import com.jonda.common.dto.Page;
+import com.jonda.erp.wedding.dao.order.OrderQueryDao;
 import com.jonda.erp.wedding.dto.order.OrderQueryParam;
 import com.jonda.erp.wedding.dto.order.OrderQueryResult;
 import com.jonda.erp.wedding.service.OrderQueryService;
@@ -24,8 +25,16 @@ public class OrderQueryServiceImpl implements OrderQueryService {
     @Resource
     private PageQueryDao pageQueryDao;
 
+    @Resource
+    private OrderQueryDao orderQueryDao;
+
     @Override
     public Page<OrderQueryResult> queryOrder(OrderQueryParam param) {
         return pageQueryDao.query("com.jonda.erp.wedding.dao.order.OrderQueryDao.queryOrderPage", param);
+    }
+
+    @Override
+    public OrderQueryResult getByOrderNo(String orderNo) {
+        return orderQueryDao.getByNo(orderNo);
     }
 }
