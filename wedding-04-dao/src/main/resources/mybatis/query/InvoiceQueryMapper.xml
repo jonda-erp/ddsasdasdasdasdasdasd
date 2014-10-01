@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- namespace必须指向Dao接口 -->
-<mapper namespace="com.jonda.erp.wedding.dao.order.InvoiceQueryDao">
+<mapper namespace="com.jonda.erp.wedding.dao.invoice.InvoiceQueryDao">
 
     <resultMap id="default_result_map" type="InvoiceQueryResult">
         <id column="id" property="id"/>
@@ -14,20 +14,18 @@
         <result column="create_time" property="createTime"/>
         <result column="modifier" property="modifier"/>
         <result column="modify_time" property="modifyTime"/>
-        <association property="order" javaType="OrderQueryResult">
-            <id column="order_id" property="orderId"/>
-            <result column="contract_id" property="contractId"/>
-            <result column="bride_name" property="brideName"/>
-            <result column="bride_telephone" property="brideTelephone"/>
-            <result column="bridegroom_name" property="bridegroomName"/>
-            <result column="bridegroom_telephone" property="bridegroomTelephone"/>
-            <result column="wedding_date" property="weddingDate"/>
-            <result column="order_status" property="status"/>
-            <result column="order_remark" property="remark"/>
-        </association>
+
+        <result column="order_no" property="orderNo"/>
+        <result column="bride_name" property="brideName"/>
+        <result column="bride_telephone" property="brideTelephone"/>
+        <result column="bridegroom_name" property="bridegroomName"/>
+        <result column="bridegroom_telephone" property="bridegroomTelephone"/>
+        <result column="wedding_date" property="weddingDate"/>
+        <result column="order_status" property="status"/>
+        <result column="order_remark" property="orderRemark"/>
     </resultMap>
 
-    <select id="getInvoiceByOrderId" resultMap="default_result_map" parameterType="long">
+    <select id="queryInvoice" resultMap="default_result_map" parameterType="InvoiceQueryParam">
         select
             i.id as id,
             i.fund_type as fund_type,
@@ -40,8 +38,7 @@
 
             u.name as user_name,
 
-            o.order_id as order_id,
-            o.contract_id as contract_id,
+            o.order_no as order_no,
             o.bride_name as bride_name,
             o.bride_telephone as bride_telephone,
             o.bridegroom_name as bridegroom_name,
@@ -50,11 +47,61 @@
             o.order_status as order_status,
             o.remark as order_remark
         from wedding_invoice i
-        left join wedding_order o on i.order_id = o.order_id
+        left join wedding_order o on i.order_no = o.order_no
         left join rbac_user u on i.invoice_person_id = u.id
         where i.data_status=1
-        and i.order_id=#{orderId}
+        <include refid="query_conditions"/>
         order by o.create_time desc
+        <include refid="com.jonda.rbac.dao.CommonDao.pageConditions"/>
     </select>
 
+    <select id="queryInvoice_count" resultType="int" parameterType="InvoiceQueryParam">
+        select count(1)
+        from wedding_invoice i
+        left join wedding_order o on i.order_no = o.order_no
+        left join rbac_user u on i.invoice_person_id = u.id
+        where i.data_status=1
+        <include refid="query_conditions"/>
+    </select>
+
+    <sql id="query_conditions">
+        <if test="orderNo != null and orderNo != ''">
+            and o.order_no = #{orderNo}
+        </if>
+        <if test="name != null and name != ''">
+            and
+            (
+            o.bride_name = #{name}
+            or
+            o.bridegroom_name = #{name}
+            )
+        </if>
+        <if test="telephone != null and telephone != ''">
+            and
+            (
+            o.bride_telephone = #{telephone}
+            or
+            o.bridegroom_telephone = #{telephone}
+            )
+        </if>
+        <if test="startWeddingDate != null">
+            <![CDATA[
+            and o.wedding_date >= #{startWeddingDate}
+            ]]>
+        </if>
+        <if test="endWeddingDate != null">
+            <![CDATA[
+            and o.wedding_date <= #{endWeddingDate}
+            ]]>
+        </if>
+        <if test="status != null and status != ''">
+            and o.order_status = #{status}
+        </if>
+        <if test="type != null and type != ''">
+            and i.fund_type = #{type}
+        </if>
+        <if test="userName != null and userName != ''">
+            and  u.name = #{userName}
+        </if>
+    </sql>
 </mapper>

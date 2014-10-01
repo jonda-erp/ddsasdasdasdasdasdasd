@@ -7,6 +7,7 @@
 <head>
     <title>订单管理</title>
     <script type="text/javascript" src="${ctx}/static/easyui/application/order/order.js"></script>
+    <script type="text/javascript" src="${ctx}/static/easyui/application/invoice/invoice.js"></script>
 </head>
 
 <body class="easyui-layout" fit="true">
@@ -63,7 +64,7 @@
         <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="createOrder('${ctx}/order/add')">创建订单</a>
         <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editOrder('${ctx}/order/modify')">修改订单</a>
         <a href="#" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="showDetail('${ctx}/order/detail')">查看详情</a>
-        <a href="#" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="deleteAdminUser()">发票管理</a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="manageInvoice('${ctx}/invoice/index')">发票管理</a>
         <a href="#" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="deleteAdminUser()">管理人员需求</a>
         <a href="#" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="deleteAdminUser()">管理道具需求</a>
     </div>
@@ -84,4 +85,6 @@
     <div id="detail-buttons">
         <a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#detail').dialog('close')">关闭</a>
     </div>
+
+    <div id="manageInvoice" class="easyui-dialog" closed="true"></div>
 </body>

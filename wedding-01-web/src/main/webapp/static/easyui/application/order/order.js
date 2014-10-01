@@ -5,7 +5,7 @@
      */
     function createOrder(remoteUrl) {
         $("#createOrder").dialog({
-            "title": "创建订单",
+            title: "创建订单",
             width: 500,
             height: 480,
             top:100,
@@ -25,7 +25,7 @@
         var row = $('#table').datagrid('getSelected');
         if (row) {
             $("#editOrder").dialog({
-                "title": "修改订单",
+                title: "修改订单",
                 width: 500,
                 height: 480,
                 top:100,
@@ -47,7 +47,7 @@
         var row = $('#table').datagrid('getSelected');
         if (row) {
             $("#detail").dialog({
-                "title": "订单详情",
+                title: "订单详情",
                 width: 500,
                 height: 480,
                 top:100,
@@ -55,6 +55,28 @@
                 href: remoteUrl + '?orderNo=' + row.orderNo
             });
             $('#detail').dialog('open');
+        } else {
+            $.messager.alert("提示", "您没有选中任何行！");
+        }
+    }
+
+    /**
+     * 发票管理
+     *
+     * @param remoteUrl
+     */
+    function manageInvoice(remoteUrl) {
+        var row = $('#table').datagrid('getSelected');
+        if (row) {
+            $("#manageInvoice").dialog({
+                title: "发票管理",
+                width: 960,
+                height: 480,
+                top:50,
+                left:120,
+                href: remoteUrl + '?orderNo=' + row.orderNo
+            });
+            $('#manageInvoice').dialog('open');
         } else {
             $.messager.alert("提示", "您没有选中任何行！");
         }

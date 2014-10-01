@@ -38,6 +38,16 @@ public class JsonResult<T extends Serializable> implements Serializable {
         }
     }
 
+    private JsonResult(List<T> list) {
+        if (list == null) throw new RuntimeException("参数不正确，分页对象不能为空");
+        this.total = list.size();
+        if (list == null) {
+            this.rows = new ArrayList<T>();
+        } else {
+            this.rows = list;
+        }
+    }
+
     public static <T extends Serializable> String getJsonResult(Page<T> page) {
         ObjectMapper mapper = new ObjectMapper();
         JsonResult<T> jsonResult = new JsonResult<T>(page);
@@ -46,6 +56,18 @@ public class JsonResult<T extends Serializable> implements Serializable {
             json = mapper.writeValueAsString(jsonResult);
         } catch (JsonProcessingException e) {
             logger.error("将Page对象转成为Json发生异常，message:{}", e.getMessage(),e);
+        }
+        return json;
+    }
+
+    public static <T extends Serializable> String getJsonResult(List<T> list) {
+        ObjectMapper mapper = new ObjectMapper();
+        JsonResult<T> jsonResult = new JsonResult<T>(list);
+        String json = null;
+        try {
+            json = mapper.writeValueAsString(jsonResult);
+        } catch (JsonProcessingException e) {
+            logger.error("将List对象转成为Json发生异常，message:{}", e.getMessage(),e);
         }
         return json;
     }

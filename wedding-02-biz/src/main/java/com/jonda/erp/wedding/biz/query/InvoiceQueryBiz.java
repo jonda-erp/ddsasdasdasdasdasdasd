@@ -1,6 +1,6 @@
 package com.jonda.erp.wedding.biz.query;
 
-import com.jonda.erp.wedding.domain.wedding.order.Invoice;
+import com.jonda.erp.wedding.dto.invoice.InvoiceQueryResult;
 
 import java.util.List;
 
@@ -12,9 +12,9 @@ public interface InvoiceQueryBiz {
     /**
      * 获取订单的所有发票
      *
-     * @param orderId
+     * @param orderNo
      * @return
      */
-    public List<Invoice> getInvoiceByOrderId(Long orderId);
+    public List<InvoiceQueryResult> getInvoiceByOrderNo(String orderNo);
 
 }

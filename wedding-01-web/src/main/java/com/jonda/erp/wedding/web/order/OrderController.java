@@ -30,6 +30,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 
 /**
+ * 订单管理
+ *
  * Created by rejoady on 2014/8/9.
  */
 @Controller
@@ -89,7 +91,7 @@ public class OrderController extends BaseController {
         JondaRbacUtil.setDataOperateInfo(order.getContract());
         // 保存数据
         orderManageBiz.createOrder(order);
-        ajaxResult = new AjaxResult("navTab_wedding_order", "closeCurrent", "操作成功！");
+        ajaxResult = new AjaxResult("closeCurrent", "操作成功！");
         return ajaxResult(ajaxResult);
     }
 
@@ -115,7 +117,7 @@ public class OrderController extends BaseController {
         JondaRbacUtil.setDataOperateInfo(order.getContract(), Boolean.TRUE);
         // 保存数据
         //orderManageBiz.createOrder(order);
-        ajaxResult = new AjaxResult("navTab_wedding_order", "closeCurrent", "操作成功！");
+        ajaxResult = new AjaxResult("closeCurrent", "操作成功！");
         return ajaxResult(ajaxResult);
     }
 
