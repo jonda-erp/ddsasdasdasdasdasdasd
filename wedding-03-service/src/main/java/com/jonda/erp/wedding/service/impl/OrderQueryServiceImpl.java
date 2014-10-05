@@ -16,7 +16,6 @@ import javax.annotation.Resource;
 /**
  * Created by rejoady on 2014/7/18.
  */
-@Transactional
 @Service("orderQueryService")
 public class OrderQueryServiceImpl implements OrderQueryService {
 

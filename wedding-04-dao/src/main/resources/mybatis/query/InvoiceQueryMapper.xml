@@ -25,6 +25,65 @@
         <result column="order_remark" property="orderRemark"/>
     </resultMap>
 
+    <resultMap id="entity_result_map" type="Invoice">
+        <id column="id" property="id"/>
+        <result column="fund_type" property="fundType"/>
+        <result column="amount" property="amount"/>
+        <result column="abstract" property="remark"/>
+        <result column="creator" property="creator"/>
+        <result column="create_time" property="createTime"/>
+        <result column="modifier" property="modifier"/>
+        <result column="modify_time" property="modifyTime"/>
+        <association property="order" javaType="Order">
+            <result column="order_no" property="orderNo"/>
+            <result column="bride_name" property="brideName"/>
+            <result column="bride_telephone" property="brideTelephone"/>
+            <result column="bridegroom_name" property="bridegroomName"/>
+            <result column="bridegroom_telephone" property="bridegroomTelephone"/>
+            <result column="wedding_date" property="weddingDate"/>
+            <result column="order_status" property="status"/>
+            <result column="order_remark" property="remark"/>
+        </association>
+        <association property="user" javaType="User">
+            <id column="user_id" property="id"/>
+            <result column="login_name" property="loginName"/>
+            <result column="user_name" property="name"/>
+            <result column="user_remark" property="remark"/>
+        </association>
+    </resultMap>
+
+
+    <select id="load" parameterType="java.lang.Long" resultMap="entity_result_map">
+        select
+            i.id as id,
+            i.fund_type as fund_type,
+            i.amount as amount,
+            i.abstract as abstract,
+            i.creator as creator,
+            i.create_time as create_time,
+            i.modifier as modifier,
+            i.modify_time as modify_time,
+
+            u.id as user_id,
+            u.login_name as login_name,
+            u.name as user_name,
+            u.remark as user_remark,
+
+            o.order_no as order_no,
+            o.bride_name as bride_name,
+            o.bride_telephone as bride_telephone,
+            o.bridegroom_name as bridegroom_name,
+            o.bridegroom_telephone as bridegroom_telephone,
+            o.wedding_date as wedding_date,
+            o.order_status as order_status,
+            o.remark as order_remark
+        from wedding_invoice i
+        left join wedding_order o on i.order_no = o.order_no
+        left join rbac_user u on i.invoice_person_id = u.id
+        where i.data_status=1
+        and i.id=#{id}
+    </select>
+
     <select id="queryInvoice" resultMap="default_result_map" parameterType="InvoiceQueryParam">
         select
             i.id as id,

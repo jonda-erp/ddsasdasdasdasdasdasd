@@ -11,7 +11,7 @@
 <body>
     <table id="invoiceTable" fit="true" class="easyui-datagrid"
            data-options="url:'${ctx}/invoice/ajax/query?orderNo=${orderNo}&_=${random}',fitColumns:true,singleSelect:true"
-       toolbar='#invoiceToolbar' idField="orderNo">
+       toolbar='#invoiceToolbar' idField="id">
         <thead>
             <tr>
                 <th data-options="field:'orderNo',width:150">订单编号</th>
@@ -29,6 +29,7 @@
     </table>
     <div id="invoiceToolbar" style="padding:5px;height:auto">
         <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="createInvoice('${ctx}/invoice/add', '${orderNo}')">开发票</a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="deleteInvoice('${ctx}/invoice/ajax/delete', '${orderNo}')">删除发票</a>
     </div>
 
     <div id="createInvoice" class="easyui-dialog" closed="true"

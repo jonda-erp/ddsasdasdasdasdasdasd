@@ -36,4 +36,9 @@ public class InvoiceQueryBizImpl implements InvoiceQueryBiz {
         }
         return data.getData();
     }
+
+    @Override
+    public Invoice load(Long id) {
+        return invoiceQueryService.load(id);
+    }
 }

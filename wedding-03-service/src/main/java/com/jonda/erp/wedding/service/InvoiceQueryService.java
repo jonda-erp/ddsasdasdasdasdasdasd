@@ -1,6 +1,7 @@
 package com.jonda.erp.wedding.service;
 
 import com.jonda.common.dto.Page;
+import com.jonda.erp.wedding.domain.wedding.order.Invoice;
 import com.jonda.erp.wedding.dto.invoice.InvoiceQueryParam;
 import com.jonda.erp.wedding.dto.invoice.InvoiceQueryResult;
 import com.jonda.erp.wedding.dto.order.OrderQueryParam;
@@ -19,4 +20,11 @@ public interface InvoiceQueryService {
      */
     public Page<InvoiceQueryResult> queryInvoice(InvoiceQueryParam param);
 
+    /**
+     *  加载发票实体
+     *
+     * @param id
+     * @return
+     */
+    public Invoice load(Long id);
 }

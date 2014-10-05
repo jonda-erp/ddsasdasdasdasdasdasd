@@ -2,12 +2,16 @@ package com.jonda.erp.wedding.web.order;
 
 import com.jonda.common.spring.web.AjaxResult;
 import com.jonda.common.spring.web.BaseController;
+import com.jonda.common.spring.web.StatusCodeEnum;
 import com.jonda.common.spring.web.json.JsonResult;
+import com.jonda.erp.wedding.biz.manage.InvoiceManageBiz;
 import com.jonda.erp.wedding.biz.query.InvoiceQueryBiz;
 import com.jonda.erp.wedding.biz.query.OrderQueryBiz;
 import com.jonda.erp.wedding.domain.wedding.order.Invoice;
+import com.jonda.erp.wedding.domain.wedding.order.Order;
 import com.jonda.erp.wedding.dto.invoice.InvoiceQueryResult;
 import com.jonda.erp.wedding.enums.InvoiceFundTypeEnum;
+import com.jonda.rbac.domain.User;
 import com.jonda.rbac.shiro.JondaRbacUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,6 +37,9 @@ public class InvoiceController extends BaseController {
 
     @Resource
     private InvoiceQueryBiz invoiceQueryBiz;
+
+    @Resource
+    private InvoiceManageBiz invoiceManageBiz;
 
     @Resource
     private OrderQueryBiz orderQueryBiz;
@@ -69,8 +76,37 @@ public class InvoiceController extends BaseController {
         }
         // 设置操作人员信息
         JondaRbacUtil.setDataOperateInfo(invoice);
+        // 设置开票人
+        User user = JondaRbacUtil.getCurrentUser();
+        invoice.setUser(user);
+
         // 保存数据
-        //orderManageBiz.createOrder(order);
+        invoiceManageBiz.createInvoice(invoice);
+        ajaxResult = new AjaxResult("closeCurrent", "操作成功！");
+        return ajaxResult(ajaxResult);
+    }
+
+    @RequestMapping(value = "/ajax/delete", method = RequestMethod.POST)
+    public @ResponseBody String delete(Model model, Long id) {
+        AjaxResult ajaxResult;
+        if (id == null) {
+            logger.error("删除发票记录，传入参数ID为空。");
+            return ajaxResult(new AjaxResult(StatusCodeEnum.ERROR,"系统错误，请联系管理员!"));
+        }
+
+        // 查询发票记录
+        Invoice invoice = invoiceQueryBiz.load(id);
+
+        if (invoice == null) {
+            logger.error("删除发票记录，根据传入ID未找到待删除数据。");
+            return ajaxResult(new AjaxResult(StatusCodeEnum.ERROR,"记录已经删除，请不要重复操作!"));
+        }
+
+        // 设置操作人员信息
+        JondaRbacUtil.setDataOperateInfo(invoice, Boolean.TRUE);
+
+        // 保存数据
+        invoiceManageBiz.deleteInvoice(invoice);
         ajaxResult = new AjaxResult("closeCurrent", "操作成功！");
         return ajaxResult(ajaxResult);
     }

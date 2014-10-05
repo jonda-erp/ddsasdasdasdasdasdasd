@@ -1,11 +1,11 @@
-package com.jonda.erp.wedding.biz.manage;
+package com.jonda.erp.wedding.service;
 
 import com.jonda.erp.wedding.domain.wedding.order.Invoice;
 
 /**
- * Created by rejoady on 2014/8/17.
+ * Created by rejoady on 2014/10/5.
  */
-public interface InvoiceManageBiz {
+public interface InvoiceManageService {
 
     /**
      * 开发票
